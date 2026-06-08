@@ -12,3 +12,8 @@ Each PNG under `docs/screenshots/` is named `stepN-<letter>.png` where the step 
 | `step4-b.png` | static menus (Workbench / Window / Icons) followed by the four WP nav items |
 | `step5-a.png` | Workbench pulldown open: About / Backdrop / Execute Command / Quit (A-Q shortcut hint right-aligned) |
 | `step5-b.png` | hover-switch: hovering Window with Workbench open swaps to the Window pulldown |
+| `step6-a.png` | desktop with 3 page icons + 6 category drawer icons in the top-right column |
+| `step6-b.png` | a page window opened (with sanitised WP HTML) via double-clicking its icon |
+| `step6-c.png` | About Workbench credits window opened from the Workbench menu |
+| `step6-d.png` | category drawer (Workbench) listing posts; clicking one opens the post window |
+| `step6-e.png` | a window moved by dragging the title bar |
