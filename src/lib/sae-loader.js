@@ -101,6 +101,7 @@ async function fetchAsUint8(url, onProgress) {
 }
 
 import { getShadow } from './disk-persist.js';
+import { getScreenMode } from './screen-modes.js';
 
 export async function startSae({
   container,
@@ -108,6 +109,7 @@ export async function startSae({
   kickstartExtUrl,
   bootFloppyUrl,
   hdfUrl,
+  screenModeId,
   onProgress,
   onLed,
 }) {
@@ -196,20 +198,22 @@ export async function startSae({
     cfg.floppy.drive[0].file.data = floppy;
     cfg.floppy.drive[0].file.size = floppy.byteLength;
   }
-  // Explicit small video config — without this SAE picks up the user's
-  // (potentially 4K HiDPI) screen and tries to allocate 3840x2160 buffers,
-  // gets clamped, and produces zero frames.
+  // Apply the user-selected screen mode (default HiRes Laced PAL = the
+  // classic Workbench look). Without explicit values SAE picks up the
+  // host's HiDPI display and clamps to its 3072×2048 maximum.
+  const mode = getScreenMode(screenModeId);
   cfg.video.id = container.id;
   cfg.video.enabled = true;
   cfg.video.api = SAE_VIDEO_API_CANVAS;
-  cfg.video.hresolution = SAE_HRES_HIRES;
-  cfg.video.vresolution = SAE_VRES_DOUBLE;
-  cfg.video.size_win.width = 720;
-  cfg.video.size_win.height = 568;
+  cfg.video.hresolution = mode.hres;
+  cfg.video.vresolution = mode.vres;
+  cfg.video.size_win.width = mode.width;
+  cfg.video.size_win.height = mode.height;
   if (cfg.video.size_fs) {
-    cfg.video.size_fs.width = 720;
-    cfg.video.size_fs.height = 568;
+    cfg.video.size_fs.width = mode.width;
+    cfg.video.size_fs.height = mode.height;
   }
+  if (cfg.chipset) cfg.chipset.ntsc = !!mode.ntsc;
   cfg.memory.z2FastSize = 2 << 20;
 
   // Wire SAE's error + lifecycle hooks so silent failures (post-start

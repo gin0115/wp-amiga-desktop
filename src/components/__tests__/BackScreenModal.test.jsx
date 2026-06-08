@@ -46,10 +46,14 @@ describe('BackScreenModal', () => {
     expect(container.firstChild).toBe(null);
   });
 
-  it('renders nothing for the special "power" slot (power gadget acts directly)', () => {
-    useStore.setState({ backModalSlot: 'power' });
-    const { container } = renderWith();
-    expect(container.firstChild).toBe(null);
+  it('"power" slot renders the System modal (Kickstart picker + Power off)', () => {
+    useStore.setState({
+      backModalSlot: 'power',
+      system: { kickstartUrl: null, kickstartExtUrl: null, bootFloppyUrl: null, hdfUrl: null },
+    });
+    renderWith();
+    expect(screen.getByTestId('back-modal-power')).toBeInTheDocument();
+    expect(screen.getByTestId('system-control')).toBeInTheDocument();
   });
 
   it('opens a slot-specific modal with DriveControl inside', () => {

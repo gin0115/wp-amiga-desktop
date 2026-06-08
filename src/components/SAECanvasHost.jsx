@@ -52,12 +52,17 @@ function SAECanvasHost({ bootToken }) {
 
     (async () => {
       try {
+        // Sources come from the systemSlice (initially seeded from VITE_*
+        // env vars; settable at runtime by the System modal so a Kickstart
+        // swap + cyclePower hits the new ROM on the next boot).
+        const system = useStore.getState().system;
         sae = await startSae({
           container,
-          kickstartUrl: import.meta.env.VITE_KICKSTART_URL,
-          kickstartExtUrl: import.meta.env.VITE_KICKSTART_EXT_URL,
-          bootFloppyUrl: import.meta.env.VITE_BOOT_FLOPPY_URL,
-          hdfUrl: import.meta.env.VITE_HDF_URL,
+          kickstartUrl: system.kickstartUrl,
+          kickstartExtUrl: system.kickstartExtUrl,
+          bootFloppyUrl: system.bootFloppyUrl,
+          hdfUrl: system.hdfUrl,
+          screenModeId: system.screenModeId,
           onProgress: (p) => {
             if (!cancelled) setProgress(p);
           },
@@ -68,14 +73,8 @@ function SAECanvasHost({ bootToken }) {
           return;
         }
         setSaeRef(sae);
-        // Initial boot floppy is mounted via env; reflect it in the
-        // drives slice so the UI shows what's in DF0:.
-        if (import.meta.env.VITE_BOOT_FLOPPY_URL) {
-          setDriveName(
-            'df0',
-            'bootdisk.adf',
-            import.meta.env.VITE_BOOT_FLOPPY_URL,
-          );
+        if (system.bootFloppyUrl) {
+          setDriveName('df0', 'bootdisk.adf', system.bootFloppyUrl);
         }
         setStatus('running');
       } catch (err) {
