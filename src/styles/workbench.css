@@ -531,6 +531,87 @@ body {
   opacity: 0.7;
 }
 
+/* ──── SystemControl (PWR gadget modal) ────────────────────────────── */
+.system-control {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.system-row {
+  border: 1px solid var(--wb-black);
+  background: var(--wb-white);
+  padding: 6px 8px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.system-row legend {
+  font-weight: bold;
+  padding: 0 4px;
+}
+
+.system-row-note {
+  margin: 0;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.system-row-current {
+  margin: 0;
+  font-size: 11px;
+}
+
+.system-row-current code {
+  background: var(--wb-grey-light);
+  padding: 0 4px;
+}
+
+.system-row-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.system-row-pick {
+  font: inherit;
+  font-size: 11px;
+  padding: 3px 10px;
+  background: var(--wb-grey-light);
+  border: 1px solid var(--wb-black);
+  cursor: pointer;
+}
+
+.system-row-pick:hover {
+  background: var(--wb-blue);
+  color: var(--wb-white);
+}
+
+.system-row-pick.is-current {
+  background: var(--wb-blue);
+  color: var(--wb-white);
+  font-weight: bold;
+}
+
+.system-row-mode-group {
+  margin-top: 4px;
+}
+
+.system-row-mode-group strong {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 2px;
+  opacity: 0.7;
+}
+
+.system-mode-dim {
+  font-size: 10px;
+  opacity: 0.6;
+  font-weight: normal;
+}
+
 .software-failure {
   width: min(440px, 80%);
 }

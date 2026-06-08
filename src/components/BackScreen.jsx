@@ -16,13 +16,13 @@ import BackScreenModal from './BackScreenModal.jsx';
  * The Power click is the user-gesture that satisfies modern browser autoplay
  * policies, so the real SAE audio context can start in step9 without fuss.
  */
-// SAE canvas's native pixel size — used both for centering math and the
-// stack-vs-side layout decision.
-const EMU_W = 720;
+// Fixed layout constants — restored to the working step14 values. The
+// canvas inside renders at SAE's native mode size; we don't try to stretch
+// it via CSS.
 const EMU_H = 568;
 const GAP = 10;
-const LED_BAR_H = 36; // horizontal LED strip height
-const STACK_TOTAL_H = EMU_H + GAP + LED_BAR_H; // stacked stack height
+const LED_BAR_H = 36;
+const STACK_TOTAL_H = EMU_H + GAP + LED_BAR_H;
 
 export default function BackScreen() {
   const status = useStore((s) => s.saeStatus);
@@ -36,17 +36,11 @@ export default function BackScreen() {
 
   const hasSae = status === 'loading' || status === 'running';
 
-  // Layout decision:
-  //   - "stacked": controls under the emulator (preferred) — used when
-  //     the visible strip can hold emulator + gap + LED bar vertically.
-  //   - "side":    controls float to the right of the emulator when
-  //     vertical space is tight.
+  // Layout decision (back to step14 behaviour):
+  //   - "stacked": controls under the emulator when the visible strip is
+  //     tall enough to fit emulator + gap + LED bar vertically.
+  //   - "side":    controls to the right of the emulator otherwise.
   const stagedLayout = offsetY >= STACK_TOTAL_H ? 'stacked' : 'side';
-
-  // Center the whole stack (emulator + maybe controls) within the
-  // visible open area (0..offsetY). Top-align (paddingTop=0) when the
-  // stack is taller than the visible area, so the emulator reveals
-  // from the top down as the user drags further.
   const stackHeight = stagedLayout === 'stacked' ? STACK_TOTAL_H : EMU_H;
   const stageOffset = Math.max(0, (offsetY - stackHeight) / 2);
 

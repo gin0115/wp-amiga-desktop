@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useStore } from '../store.js';
 import DriveControl from './DriveControl.jsx';
+import SystemControl from './SystemControl.jsx';
 
 const SLOT_TITLES = {
   df0: 'DF0:  (Floppy)',
@@ -9,6 +10,7 @@ const SLOT_TITLES = {
   df3: 'DF3:  (Floppy)',
   dh0: 'DH0:  (Hardfile)',
   dh1: 'DH1:  (Hardfile)',
+  power: 'System',
 };
 
 /**
@@ -31,7 +33,8 @@ export default function BackScreenModal() {
   }, [slot, closeBackModal]);
 
   if (!slot) return null;
-  if (slot === 'power') return null; // PWR gadget acts directly, no modal
+
+  const isSystem = slot === 'power';
 
   return (
     <div
@@ -57,7 +60,7 @@ export default function BackScreenModal() {
           </button>
         </div>
         <div className="back-modal-body">
-          <DriveControl slot={slot} />
+          {isSystem ? <SystemControl /> : <DriveControl slot={slot} />}
         </div>
       </div>
     </div>

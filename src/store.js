@@ -128,6 +128,40 @@ export const useStore = create((set, get) => ({
   },
 
   // ────────────────────────────────────────────────────────────────
+  // systemSlice — boot-time sources for SAE. Initialised from
+  // VITE_* env vars but mutable at runtime so the System modal can
+  // swap Kickstart / extension / boot floppy / HDF and trigger a
+  // power-cycle to reboot from the new image.
+  // ────────────────────────────────────────────────────────────────
+  system: {
+    kickstartUrl: import.meta.env?.VITE_KICKSTART_URL ?? null,
+    kickstartExtUrl: import.meta.env?.VITE_KICKSTART_EXT_URL ?? null,
+    bootFloppyUrl: import.meta.env?.VITE_BOOT_FLOPPY_URL ?? null,
+    hdfUrl: import.meta.env?.VITE_HDF_URL ?? null,
+    screenModeId: 'hires-laced-pal',
+  },
+  setSystemSource(field, url) {
+    set((s) => ({ system: { ...s.system, [field]: url } }));
+  },
+  setScreenMode(modeId) {
+    set((s) => ({ system: { ...s.system, screenModeId: modeId } }));
+  },
+  cyclePower() {
+    // Power off, then power on next microtask so SAECanvasHost's effect
+    // sees a fresh bootToken and re-runs the load with the new sources.
+    set({ saeStatus: 'off', saeProgress: 0, saeError: null });
+    Promise.resolve().then(() => {
+      const { bootToken } = get();
+      set({
+        saeStatus: 'loading',
+        bootToken: bootToken + 1,
+        saeProgress: 0,
+        saeError: null,
+      });
+    });
+  },
+
+  // ────────────────────────────────────────────────────────────────
   // ledsSlice — Amiga front-panel indicators wired to SAE's hook.led.*
   // power: lit while the emulator's CPU is running
   // df:    one boolean per floppy drive (DF0..DF3) — true when reading

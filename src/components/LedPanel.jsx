@@ -22,7 +22,9 @@ export default function LedPanel() {
   const status = useStore((s) => s.saeStatus);
   const leds = useStore((s) => s.leds);
   const drives = useStore((s) => s.drives);
-  const powerOff = useStore((s) => s.powerOff);
+  // PWR click opens the System modal — power off + Kickstart/floppy/HDF
+  // picker live in there. Drive gadgets open their own per-slot modals
+  // via DriveGadget's default openBackModal(slot).
   if (status === 'off') return null;
 
   return (
@@ -33,7 +35,6 @@ export default function LedPanel() {
         label="PWR"
         mounted
         active={leds.power}
-        onClick={powerOff}
       />
       {FLOPPY_SLOTS.map(({ slot, label, idx }) => (
         <DriveGadget

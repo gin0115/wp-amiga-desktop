@@ -66,17 +66,20 @@ test.describe('step14: emulator-panel gadgets + modal', () => {
     await expect(page.getByTestId('back-modal-dh0')).toHaveCount(0);
   });
 
-  test('PWR gadget click powers off — no modal', async ({ page }) => {
+  test('PWR gadget click opens the System modal; Power off button stops SAE', async ({
+    page,
+  }) => {
     await page.goto('/');
     await pullDownScreen(page, 800);
     await page.getByTestId('power-on').click();
     await expect(page.getByTestId('gadget-power')).toBeVisible();
     await page.getByTestId('gadget-power').click();
+    await expect(page.getByTestId('back-modal-power')).toBeVisible();
+    await expect(page.getByTestId('system-control')).toBeVisible();
+    await page.getByTestId('system-power-off').click();
     await expect(page.getByTestId('back-screen')).toHaveAttribute(
       'data-status',
       'off',
     );
-    // No power modal
-    await expect(page.getByTestId('back-modal-power')).toHaveCount(0);
   });
 });

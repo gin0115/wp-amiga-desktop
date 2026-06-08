@@ -45,13 +45,20 @@ describe('DriveGadget', () => {
     expect(useStore.getState().backModalSlot).toBe('dh1');
   });
 
-  it('power gadget: custom onClick takes precedence (no modal)', async () => {
+  it('power gadget (default click) opens the System modal', async () => {
+    const user = userEvent.setup();
+    render(<DriveGadget slot="power" kind="power" label="PWR" mounted />);
+    await user.click(screen.getByTestId('gadget-power'));
+    expect(useStore.getState().backModalSlot).toBe('power');
+  });
+
+  it('a custom onClick prop overrides the default open-modal behaviour', async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
     render(
-      <DriveGadget slot="power" kind="power" label="PWR" onClick={onClick} />,
+      <DriveGadget slot="df0" kind="floppy" label="DF0" onClick={onClick} />,
     );
-    await user.click(screen.getByTestId('gadget-power'));
+    await user.click(screen.getByTestId('gadget-df0'));
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(useStore.getState().backModalSlot).toBe(null);
   });
