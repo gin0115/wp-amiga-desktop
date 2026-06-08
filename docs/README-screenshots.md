@@ -24,3 +24,4 @@ Each PNG under `docs/screenshots/` is named `stepN-<letter>.png` where the step 
 | `step9-a.png` | SAE smoke: Power click without VITE_KICKSTART_URL shows the orange Software Failure requester |
 | `step11-a.png` | Disks window: 4 floppy + 2 hardfile slots with Insert / New blank / Save / Eject controls |
 | `step11-b.png` | LED panel bottom-left of back screen: PWR / DF0-DF3 / HD / FPS readout |
+| `step12-a.png` | Games & Demos drawer icon + Library window grouping items by category |

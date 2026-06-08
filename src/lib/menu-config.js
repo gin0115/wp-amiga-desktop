@@ -13,11 +13,13 @@
 
 import { ABOUT_WINDOW } from '../components/AmigaWindow.jsx';
 import { DRIVES_WINDOW } from '../components/DriveSelector.jsx';
+import { LIBRARY_WINDOW } from '../components/LibraryDrawer.jsx';
 
 const reload = () => window.location.reload();
 
 const openAbout = (store) => store.openWindow(ABOUT_WINDOW);
 const openDrives = (store) => store.openWindow(DRIVES_WINDOW);
+const openLibrary = (store) => store.openWindow(LIBRARY_WINDOW);
 
 const todoWindows = (label) => () => {
   // Stub for the Phase 1 menu items that don't yet have real wiring. Logs
@@ -57,6 +59,7 @@ export const MENU_CONFIG = [
     title: 'Disks',
     items: [
       { label: 'Manage Drives...', shortcut: 'D', action: openDrives },
+      { label: 'Games & Demos...', shortcut: 'G', action: openLibrary },
     ],
   },
   {

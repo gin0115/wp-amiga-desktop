@@ -4,6 +4,7 @@ import { usePage, usePost, usePosts } from '../hooks/useWpQuery.js';
 import { sanitizeHtml } from '../lib/sanitize.js';
 import useWindowDrag from '../hooks/useWindowDrag.js';
 import DriveSelector from './DriveSelector.jsx';
+import LibraryDrawer from './LibraryDrawer.jsx';
 
 /**
  * A single draggable, resizable Amiga-styled window. Three gadgets in the
@@ -88,6 +89,7 @@ function WindowContent({ win }) {
   if (win.kind === 'category') return <CategoryView id={win.contentId} />;
   if (win.kind === 'about') return <AboutView />;
   if (win.kind === 'drives') return <DriveSelector />;
+  if (win.kind === 'library') return <LibraryDrawer />;
   return <p>Unknown window kind: {win.kind}</p>;
 }
 

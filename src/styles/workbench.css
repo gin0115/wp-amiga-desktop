@@ -300,6 +300,69 @@ body {
   cursor: not-allowed;
 }
 
+/* ──── LibraryDrawer ──────────────────────────────────────────────── */
+.library-drawer {
+  font-size: 12px;
+}
+
+.library-group {
+  margin-bottom: 12px;
+}
+
+.library-group h3 {
+  font-size: 13px;
+  margin: 8px 0 4px;
+}
+
+.library-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 4px;
+}
+
+.library-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 6px 8px;
+  background: var(--wb-grey-light);
+  border: 1px solid var(--wb-black);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.library-item:hover:not(:disabled) {
+  background: var(--wb-blue);
+  color: var(--wb-white);
+}
+
+.library-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.library-item-title {
+  font-weight: bold;
+}
+
+.library-item-meta {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.library-error {
+  margin-top: 8px;
+  padding: 4px 8px;
+  background: var(--wb-black);
+  color: var(--wb-orange);
+  font-size: 11px;
+}
+
 .software-failure {
   width: min(440px, 80%);
 }
