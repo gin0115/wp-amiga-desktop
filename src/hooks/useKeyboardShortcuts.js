@@ -13,7 +13,9 @@ export default function useKeyboardShortcuts() {
     const map = shortcutMap();
     function onKey(e) {
       if (e.key === 'Escape') {
-        useStore.getState().closeMenu();
+        const store = useStore.getState();
+        store.closeMenu();
+        store.resetToClosed();
         return;
       }
       if (!e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;
