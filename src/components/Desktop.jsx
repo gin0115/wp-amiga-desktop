@@ -1,7 +1,6 @@
 import { useCategories, usePages } from '../hooks/useWpQuery.js';
 import DiskIcon from './DiskIcon.jsx';
 import WindowManager from './WindowManager.jsx';
-import { LIBRARY_WINDOW } from './LibraryDrawer.jsx';
 
 // Default geometry for windows that open from an icon; WindowManager
 // staggers subsequent windows in code.
@@ -15,12 +14,6 @@ export default function Desktop() {
   return (
     <div className="desktop" data-testid="desktop">
       <div className="desktop-icons" data-testid="desktop-icons">
-        <DiskIcon
-          glyph="drawer"
-          label="Games & Demos"
-          testId="icon-library"
-          window={LIBRARY_WINDOW}
-        />
         {pages.map((p, i) => (
           <DiskIcon
             key={`page-${p.id}`}

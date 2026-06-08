@@ -1,6 +1,7 @@
 import { useStore, selectBackVisible } from '../store.js';
 import SAECanvasHost from './SAECanvasHost.jsx';
 import LedPanel from './LedPanel.jsx';
+import BackScreenModal from './BackScreenModal.jsx';
 
 /**
  * The back screen — the second 'monitor' behind the front Workbench screen.
@@ -15,6 +16,14 @@ import LedPanel from './LedPanel.jsx';
  * The Power click is the user-gesture that satisfies modern browser autoplay
  * policies, so the real SAE audio context can start in step9 without fuss.
  */
+// SAE canvas's native pixel size — used both for centering math and the
+// stack-vs-side layout decision.
+const EMU_W = 720;
+const EMU_H = 568;
+const GAP = 10;
+const LED_BAR_H = 36; // horizontal LED strip height
+const STACK_TOTAL_H = EMU_H + GAP + LED_BAR_H; // stacked stack height
+
 export default function BackScreen() {
   const status = useStore((s) => s.saeStatus);
   const progress = useStore((s) => s.saeProgress);
@@ -23,8 +32,23 @@ export default function BackScreen() {
   const powerOn = useStore((s) => s.powerOn);
   const powerOff = useStore((s) => s.powerOff);
   const visible = useStore(selectBackVisible);
+  const offsetY = useStore((s) => s.offsetY);
 
   const hasSae = status === 'loading' || status === 'running';
+
+  // Layout decision:
+  //   - "stacked": controls under the emulator (preferred) — used when
+  //     the visible strip can hold emulator + gap + LED bar vertically.
+  //   - "side":    controls float to the right of the emulator when
+  //     vertical space is tight.
+  const stagedLayout = offsetY >= STACK_TOTAL_H ? 'stacked' : 'side';
+
+  // Center the whole stack (emulator + maybe controls) within the
+  // visible open area (0..offsetY). Top-align (paddingTop=0) when the
+  // stack is taller than the visible area, so the emulator reveals
+  // from the top down as the user drags further.
+  const stackHeight = stagedLayout === 'stacked' ? STACK_TOTAL_H : EMU_H;
+  const stageOffset = Math.max(0, (offsetY - stackHeight) / 2);
 
   return (
     <div
@@ -37,17 +61,29 @@ export default function BackScreen() {
       <div className="crt">
         {status === 'off' && <PoweredOff onPowerOn={powerOn} />}
         {status === 'loading' && <Loading progress={progress} />}
-        {status === 'running' && <RunningChrome onPowerOff={powerOff} />}
         {status === 'error' && (
           <SoftwareFailure error={error} onRetry={powerOn} onCancel={powerOff} />
         )}
       </div>
       {hasSae && (
-        <div className="sae-mount" data-testid="sae-mount">
-          <SAECanvasHost bootToken={bootToken} />
+        <div
+          className="back-stage"
+          data-testid="back-stage"
+          data-layout={stagedLayout}
+          style={{
+            // Constrain the stage to the actual visible strip so the
+            // LED panel can't slide behind the front-screen title bar.
+            height: offsetY > 0 ? `${offsetY}px` : '100%',
+            paddingTop: `${stageOffset}px`,
+          }}
+        >
+          <div className="sae-mount" data-testid="sae-mount">
+            <SAECanvasHost bootToken={bootToken} />
+          </div>
+          <LedPanel />
         </div>
       )}
-      <LedPanel />
+      <BackScreenModal />
     </div>
   );
 }
@@ -103,20 +139,6 @@ function Loading({ progress }) {
         <div className="crt-progress-fill" style={{ width: `${pct}%` }} />
       </div>
     </div>
-  );
-}
-
-function RunningChrome({ onPowerOff }) {
-  return (
-    <button
-      type="button"
-      className="power-off-corner"
-      data-testid="power-off"
-      onClick={onPowerOff}
-      aria-label="Power off AROS Workbench"
-    >
-      ⏻ Power off
-    </button>
   );
 }
 

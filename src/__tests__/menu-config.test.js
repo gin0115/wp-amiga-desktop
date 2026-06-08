@@ -4,7 +4,9 @@ import { MENU_CONFIG, shortcutMap } from '../lib/menu-config.js';
 describe('MENU_CONFIG', () => {
   it('exposes the static top-level menus in order', () => {
     const ids = MENU_CONFIG.map((m) => m.id);
-    expect(ids).toEqual(['workbench', 'window', 'disks', 'icons']);
+    // Blog menu has NO emulator controls. Drive/disk/library UI lives
+    // on the back screen as gadget+modal (see DriveGadget / BackScreenModal).
+    expect(ids).toEqual(['workbench', 'window', 'icons']);
   });
 
   it('every non-separator item has a label', () => {

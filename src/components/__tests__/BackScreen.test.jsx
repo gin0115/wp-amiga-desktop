@@ -40,11 +40,23 @@ describe('BackScreen', () => {
     expect(screen.getByTestId('crt-loading')).toBeInTheDocument();
   });
 
-  it('renders the running state with a corner power-off control + sae mount', () => {
-    useStore.setState({ saeStatus: 'running' });
+  it('renders the running state with the gadget strip + sae mount; power off comes from PWR gadget', () => {
+    useStore.setState({
+      saeStatus: 'running',
+      drives: {
+        df0: { name: null, source: null, dirty: false },
+        df1: { name: null, source: null, dirty: false },
+        df2: { name: null, source: null, dirty: false },
+        df3: { name: null, source: null, dirty: false },
+        dh0: { name: null, source: null, dirty: false },
+        dh1: { name: null, source: null, dirty: false },
+      },
+      leds: { power: true, df: [false, false, false, false], hd: false, fps: 50 },
+    });
     render(<BackScreen />);
-    expect(screen.getByTestId('power-off')).toBeInTheDocument();
     expect(screen.getByTestId('sae-mount')).toBeInTheDocument();
+    expect(screen.getByTestId('led-panel')).toBeInTheDocument();
+    expect(screen.getByTestId('gadget-power')).toBeInTheDocument();
   });
 
   it('error state shows Software Failure with Retry / Cancel', async () => {
