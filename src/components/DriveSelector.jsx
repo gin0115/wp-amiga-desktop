@@ -9,6 +9,7 @@ import {
   mountSlot,
   ejectSlot,
 } from '../lib/disk-tools.js';
+import { deleteShadow } from '../lib/disk-persist.js';
 
 const FLOPPY_SLOTS = ['df0', 'df1', 'df2', 'df3'];
 const HARDFILE_SLOTS = ['dh0', 'dh1'];
@@ -84,6 +85,11 @@ function DriveRow({ slot, kind, drive, sae }) {
     downloadBuffer(target.data, target.name || `${slot}.bin`);
   };
 
+  const onResetShadow = async () => {
+    if (!drive?.source) return;
+    await deleteShadow(slot, drive.source).catch(() => {});
+  };
+
   const accept = kind === 'floppy' ? '.adf,.dms' : '.hdf,.hda,.img';
 
   return (
@@ -136,6 +142,15 @@ function DriveRow({ slot, kind, drive, sae }) {
         data-testid={`drive-eject-${slot}`}
       >
         Eject
+      </button>
+      <button
+        type="button"
+        onClick={onResetShadow}
+        disabled={!drive?.source}
+        data-testid={`drive-reset-${slot}`}
+        title="Delete persisted writes for this disk so it reloads fresh next boot"
+      >
+        Reset
       </button>
     </div>
   );

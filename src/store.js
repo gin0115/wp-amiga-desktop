@@ -149,19 +149,22 @@ export const useStore = create((set, get) => ({
   // to it). The actual byte buffer lives in SAE's config; we just track
   // metadata here so UI can render it.
   // ────────────────────────────────────────────────────────────────
+  // Each slot: name (display), source (URL used to load — null for uploads
+  // or blank-created — keys IDB shadow), dirty (true once writes happened
+  // since last snapshot).
   drives: {
-    df0: { name: null, dirty: false },
-    df1: { name: null, dirty: false },
-    df2: { name: null, dirty: false },
-    df3: { name: null, dirty: false },
-    dh0: { name: null, dirty: false },
-    dh1: { name: null, dirty: false },
+    df0: { name: null, source: null, dirty: false },
+    df1: { name: null, source: null, dirty: false },
+    df2: { name: null, source: null, dirty: false },
+    df3: { name: null, source: null, dirty: false },
+    dh0: { name: null, source: null, dirty: false },
+    dh1: { name: null, source: null, dirty: false },
   },
-  setDriveName(slot, name) {
+  setDriveName(slot, name, source = null) {
     set((s) => ({
       drives: {
         ...s.drives,
-        [slot]: { ...s.drives[slot], name, dirty: false },
+        [slot]: { name, source, dirty: false },
       },
     }));
   },

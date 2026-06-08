@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useStore } from '../store.js';
 import { useLibrary } from '../hooks/useLibrary.js';
 import { mountSlot } from '../lib/disk-tools.js';
+import { getShadow } from '../lib/disk-persist.js';
 
 /**
  * Content for the 'library' window kind: groups library items by category,
@@ -45,12 +46,21 @@ export default function LibraryDrawer() {
     setMounting(item.id);
     setLastError(null);
     try {
-      const res = await fetch(item.url);
-      if (!res.ok) throw new Error(`Fetch ${item.url} → ${res.status}`);
-      const data = new Uint8Array(await res.arrayBuffer());
       const slot = item.slot || 'df0';
+      let data = null;
+      try {
+        const shadow = await getShadow(slot, item.url);
+        if (shadow?.data) data = shadow.data;
+      } catch {
+        /* IDB unavailable — fall through to fetch */
+      }
+      if (!data) {
+        const res = await fetch(item.url);
+        if (!res.ok) throw new Error(`Fetch ${item.url} → ${res.status}`);
+        data = new Uint8Array(await res.arrayBuffer());
+      }
       if (mountSlot(sae, slot, item.title, data)) {
-        setDriveName(slot, item.title);
+        setDriveName(slot, item.title, item.url);
       }
     } catch (e) {
       setLastError(e.message);
