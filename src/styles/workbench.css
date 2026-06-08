@@ -182,6 +182,262 @@ body {
   opacity: 0.4;
 }
 
+/* ──── Desktop icons ───────────────────────────────────────────────── */
+.desktop-icons {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  z-index: 1;
+}
+
+.disk-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 80px;
+  padding: 4px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--wb-white);
+  background: transparent;
+  border: 0;
+}
+
+.disk-icon:focus-visible {
+  outline: 1px dotted var(--wb-white);
+}
+
+.disk-glyph {
+  width: 40px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+.disk-icon-label {
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+.disk-icon:hover .disk-icon-label,
+.disk-icon:focus-visible .disk-icon-label {
+  background: var(--wb-black);
+  color: var(--wb-white);
+  padding: 0 4px;
+}
+
+/* ──── Amiga Window ────────────────────────────────────────────────── */
+.window-manager {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.amiga-window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--wb-grey-light);
+  color: var(--wb-black);
+  border: 1px solid var(--wb-black);
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  font-size: 13px;
+}
+
+.amiga-window.is-focused {
+  box-shadow: 0 0 0 1px var(--wb-white) inset;
+}
+
+.amiga-window-titlebar {
+  flex: 0 0 20px;
+  background: var(--wb-grey-light);
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--wb-black);
+}
+
+.amiga-window.is-focused .amiga-window-titlebar {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      var(--wb-blue) 0,
+      var(--wb-blue) 2px,
+      var(--wb-white) 2px,
+      var(--wb-white) 3px
+    );
+  color: var(--wb-white);
+}
+
+.amiga-gadget {
+  width: 20px;
+  height: 100%;
+  background: var(--wb-grey-light);
+  border: 0;
+  border-right: 1px solid var(--wb-black);
+  position: relative;
+  cursor: pointer;
+}
+
+.amiga-gadget.close::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background: var(--wb-white);
+  border: 1px solid var(--wb-black);
+}
+
+.amiga-gadget.zoom::after,
+.amiga-gadget.depth::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  background: var(--wb-white);
+  border: 1px solid var(--wb-black);
+}
+
+.amiga-window .amiga-gadget {
+  border-right: 1px solid var(--wb-black);
+}
+
+.amiga-window-titlebar > .amiga-gadget:last-child,
+.amiga-window-titlebar > .amiga-gadget:nth-last-child(2) {
+  border-right: 0;
+  border-left: 1px solid var(--wb-black);
+}
+
+.amiga-window-title-drag {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  padding: 0 8px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+.amiga-window-content {
+  flex: 1 1 auto;
+  overflow: auto;
+  background: var(--wb-white);
+  color: var(--wb-black);
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.amiga-window-content .wp-content h2 {
+  font-size: 14px;
+  margin: 8px 0 4px;
+}
+
+.amiga-window-content .wp-content h3 {
+  font-size: 13px;
+  margin: 6px 0 3px;
+}
+
+.amiga-window-content .wp-content p {
+  margin: 0 0 6px;
+}
+
+.amiga-window-content blockquote {
+  border-left: 2px solid var(--wb-black);
+  padding-left: 8px;
+  margin: 8px 0;
+  font-style: italic;
+}
+
+.amiga-window-content code {
+  background: var(--wb-grey-light);
+  padding: 0 3px;
+}
+
+.amiga-window-content a {
+  color: var(--wb-blue);
+}
+
+.window-status {
+  margin: 16px;
+  font-style: italic;
+  color: var(--wb-grey-dark);
+}
+
+.category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.category-list li {
+  border-bottom: 1px dotted var(--wb-grey-dark);
+}
+
+.category-link {
+  display: block;
+  width: 100%;
+  padding: 4px 6px;
+  text-align: left;
+  font: inherit;
+  background: transparent;
+  border: 0;
+  color: var(--wb-black);
+  cursor: pointer;
+}
+
+.category-link:hover {
+  background: var(--wb-blue);
+  color: var(--wb-white);
+}
+
+.about-credits ul {
+  padding-left: 18px;
+}
+
+.about-credits li {
+  margin-bottom: 3px;
+}
+
+.amiga-sizing-gadget {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  background: var(--wb-grey-light);
+  border: 0;
+  border-top: 1px solid var(--wb-black);
+  border-left: 1px solid var(--wb-black);
+  cursor: nwse-resize;
+  touch-action: none;
+}
+
+.amiga-sizing-gadget::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: linear-gradient(
+    135deg,
+    transparent 0,
+    transparent 4px,
+    var(--wb-black) 4px,
+    var(--wb-black) 5px,
+    transparent 5px,
+    transparent 8px,
+    var(--wb-black) 8px,
+    var(--wb-black) 9px,
+    transparent 9px
+  );
+}
+
 /* Reusable chiselled WB3.1 border. Outer white, inner black — gives the
    classic "engraved" look on any container that gets this class. */
 .wb-border-out {

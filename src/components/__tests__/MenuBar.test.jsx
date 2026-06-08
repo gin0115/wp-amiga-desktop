@@ -6,7 +6,10 @@ import MenuBar from '../MenuBar.jsx';
 import { useStore } from '../../store.js';
 
 afterEach(() => vi.restoreAllMocks());
-beforeEach(() => useStore.getState().closeMenu());
+beforeEach(() => {
+  useStore.getState().closeMenu();
+  useStore.setState({ windows: new Map(), focusedWindowId: null, nextZ: 1 });
+});
 
 function renderWith(menuData) {
   const client = new QueryClient({
@@ -63,14 +66,23 @@ describe('MenuBar', () => {
     expect(screen.getByTestId('pulldown-window')).toBeInTheDocument();
   });
 
-  it('clicking a pulldown item fires its action and closes the menu', async () => {
+  it('clicking the About item opens the about window and closes the menu', async () => {
     const user = userEvent.setup();
-    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     renderWith({ items: [] });
     await user.click(screen.getByTestId('menu-title-workbench'));
     await user.click(screen.getByTestId('pulldown-item-about'));
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('About Workbench'));
+    expect(useStore.getState().windows.has('about')).toBe(true);
     expect(screen.queryByTestId('pulldown-workbench')).toBeNull();
+  });
+
+  it('clicking a todo-stub item logs and closes the menu', async () => {
+    const user = userEvent.setup();
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    renderWith({ items: [] });
+    await user.click(screen.getByTestId('menu-title-icons'));
+    await user.click(screen.getByTestId('pulldown-item-empty-trash'));
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('Empty trash'));
+    expect(screen.queryByTestId('pulldown-icons')).toBeNull();
   });
 
   it('Escape closes any open menu', async () => {

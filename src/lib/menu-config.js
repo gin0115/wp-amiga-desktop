@@ -11,13 +11,17 @@
 // (the whole store) — pass it through dispatchMenuAction in this module
 // so menu items can stay declarative.
 
+import { ABOUT_WINDOW } from '../components/AmigaWindow.jsx';
+
 const reload = () => window.location.reload();
 
+const openAbout = (store) => store.openWindow(ABOUT_WINDOW);
+
 const todoWindows = (label) => () => {
-  // Real window-opening lands in step6. Until then the action just logs
-  // so the menu wiring is observable in the console / Playwright traces.
+  // Stub for the Phase 1 menu items that don't yet have real wiring. Logs
+  // so the click is observable in the console / Playwright traces.
   // eslint-disable-next-line no-console
-  console.log(`[menu] todo step6: open window for "${label}"`);
+  console.log(`[menu] todo: real action for "${label}"`);
 };
 
 export const MENU_CONFIG = [
@@ -25,7 +29,7 @@ export const MENU_CONFIG = [
     id: 'workbench',
     title: 'Workbench',
     items: [
-      { label: 'About...', action: todoWindows('About Workbench') },
+      { label: 'About...', action: openAbout },
       { separator: true },
       { label: 'Backdrop', action: todoWindows('Backdrop toggle') },
       { label: 'Execute Command...', action: todoWindows('Execute Command') },
