@@ -35,52 +35,108 @@ body {
 .amiga-root {
   height: 100%;
   width: 100%;
+  background: var(--wb-black);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ──── ScreenStack ─────────────────────────────────────────────────── */
+.screen-stack {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+/* ──── BackScreen (placeholder until step7) ────────────────────────── */
+.back-screen {
+  position: absolute;
+  inset: 0;
+  background: #111;
+  color: var(--wb-grey-light);
   display: grid;
   place-items: center;
+}
+
+.back-screen-placeholder {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+
+/* ──── FrontScreen ─────────────────────────────────────────────────── */
+.front-screen {
+  position: absolute;
+  inset: 0;
   background: var(--wb-blue);
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
 }
 
-.boot-placeholder {
-  text-align: center;
-}
-
-.boot-placeholder p {
-  margin: 0;
-  font-size: 24px;
-}
-
-.boot-placeholder .boot-subtitle {
-  margin-top: 8px;
-  font-size: 12px;
-  color: var(--wb-orange);
-}
-
-.boot-placeholder ul {
-  list-style: none;
-  padding: 8px 0 0 0;
-  margin: 0;
-  font-size: 12px;
-}
-
-.boot-placeholder li {
-  padding: 2px 0;
-}
-
-.boot-placeholder .boot-error {
-  margin-top: 8px;
-  color: var(--wb-orange);
-  font-weight: bold;
-}
-
-.boot-placeholder button {
-  margin-top: 8px;
-  font: inherit;
-  background: var(--wb-grey-light);
+/* ──── ScreenTitleBar ──────────────────────────────────────────────── */
+.screen-title-bar {
+  flex: 0 0 var(--wb-title-h);
+  background: var(--wb-white);
   color: var(--wb-black);
-  border: var(--wb-border) solid var(--wb-white);
-  outline: 1px solid var(--wb-black);
-  padding: 4px 12px;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--wb-black);
+  user-select: none;
+  cursor: ns-resize; /* hints the drag affordance (real wire-up step8) */
+}
+
+.screen-info {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 8px;
+  font-size: 12px;
+  color: var(--wb-black);
+}
+
+.screen-info-mem {
+  opacity: 0.6;
+}
+
+/* ──── MenuBar ─────────────────────────────────────────────────────── */
+.menu-bar {
+  display: flex;
+  align-items: stretch;
+  padding: 0 8px;
+  gap: 0;
+}
+
+.menu-title {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
   cursor: pointer;
+}
+
+.menu-title:hover,
+.menu-title[data-open='true'] {
+  background: var(--wb-blue);
+  color: var(--wb-white);
+}
+
+/* ──── Desktop ─────────────────────────────────────────────────────── */
+.desktop {
+  flex: 1 1 auto;
+  position: relative;
+  color: var(--wb-white);
+}
+
+.desktop-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  opacity: 0.4;
 }
 
 /* Reusable chiselled WB3.1 border. Outer white, inner black — gives the
