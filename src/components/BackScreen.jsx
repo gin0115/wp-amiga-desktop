@@ -1,5 +1,6 @@
 import { useStore, selectBackVisible } from '../store.js';
 import SAECanvasHost from './SAECanvasHost.jsx';
+import LedPanel from './LedPanel.jsx';
 
 /**
  * The back screen — the second 'monitor' behind the front Workbench screen.
@@ -46,6 +47,7 @@ export default function BackScreen() {
           <SAECanvasHost bootToken={bootToken} />
         </div>
       )}
+      <LedPanel />
     </div>
   );
 }

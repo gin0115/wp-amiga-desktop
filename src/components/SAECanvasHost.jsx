@@ -19,9 +19,21 @@ function SAECanvasHost({ bootToken }) {
     if (!container) return;
     let cancelled = false;
     let sae = null;
-    const setProgress = useStore.getState().setSaeProgress;
-    const setStatus = useStore.getState().setSaeStatus;
-    const setError = useStore.getState().setSaeError;
+    const store = useStore.getState();
+    const setProgress = store.setSaeProgress;
+    const setStatus = store.setSaeStatus;
+    const setError = store.setSaeError;
+    const setLed = store.setLed;
+    const setSaeRef = store.setSaeRef;
+    const setDriveName = store.setDriveName;
+
+    function onLed(update) {
+      if (cancelled) return;
+      if ('power' in update) setLed('power', update.power);
+      if ('hd' in update) setLed('hd', update.hd);
+      if ('fps' in update) setLed('fps', update.fps);
+      if (update.df) setLed('df', update.df.on, update.df.index);
+    }
 
     (async () => {
       try {
@@ -34,10 +46,17 @@ function SAECanvasHost({ bootToken }) {
           onProgress: (p) => {
             if (!cancelled) setProgress(p);
           },
+          onLed,
         });
         if (cancelled) {
           stopSae(sae);
           return;
+        }
+        setSaeRef(sae);
+        // Initial boot floppy is mounted via env; reflect it in the
+        // drives slice so the UI shows what's in DF0:.
+        if (import.meta.env.VITE_BOOT_FLOPPY_URL) {
+          setDriveName('df0', 'bootdisk.adf');
         }
         setStatus('running');
       } catch (err) {
@@ -48,6 +67,8 @@ function SAECanvasHost({ bootToken }) {
 
     return () => {
       cancelled = true;
+      useStore.getState().setSaeRef(null);
+      useStore.getState().setLed('power', false);
       stopSae(sae);
       // Clear any canvas SAE injected so a fresh boot starts clean.
       while (container.firstChild) container.removeChild(container.firstChild);

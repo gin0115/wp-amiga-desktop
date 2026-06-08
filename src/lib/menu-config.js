@@ -12,10 +12,12 @@
 // so menu items can stay declarative.
 
 import { ABOUT_WINDOW } from '../components/AmigaWindow.jsx';
+import { DRIVES_WINDOW } from '../components/DriveSelector.jsx';
 
 const reload = () => window.location.reload();
 
 const openAbout = (store) => store.openWindow(ABOUT_WINDOW);
+const openDrives = (store) => store.openWindow(DRIVES_WINDOW);
 
 const todoWindows = (label) => () => {
   // Stub for the Phase 1 menu items that don't yet have real wiring. Logs
@@ -48,6 +50,13 @@ export const MENU_CONFIG = [
       { label: 'Update', action: todoWindows('Update') },
       { label: 'Snapshot', action: todoWindows('Snapshot') },
       { label: 'Clean Up', action: todoWindows('Clean Up') },
+    ],
+  },
+  {
+    id: 'disks',
+    title: 'Disks',
+    items: [
+      { label: 'Manage Drives...', shortcut: 'D', action: openDrives },
     ],
   },
   {
