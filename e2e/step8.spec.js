@@ -43,11 +43,12 @@ test.describe('step8: free-form screen-drag', () => {
     await dragScreen(page, 600);
     const offset = await frontOffset(page);
     expect(offset).toBeGreaterThan(500);
-    // Power-on is on the back screen — clicking it must now work
+    // Power-on is on the back screen — clicking it must now work and leave
+    // the OFF state (the loader's actual fate depends on VITE_KICKSTART_URL).
     await page.getByTestId('power-on').click();
-    await expect(page.getByTestId('back-screen')).toHaveAttribute(
+    await expect(page.getByTestId('back-screen')).not.toHaveAttribute(
       'data-status',
-      'loading',
+      'off',
     );
     await shot(page, 'step8-b');
   });

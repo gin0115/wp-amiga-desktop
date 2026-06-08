@@ -59,8 +59,13 @@ body {
   isolation: isolate;
   background: radial-gradient(ellipse at center, #1a1a1a 0%, #050505 80%);
   color: var(--wb-grey-light);
-  display: grid;
-  place-items: center;
+  /* Top-anchored: as the front screen pulls down it reveals the back from
+     the top, so content (Power gadget, SAE canvas, etc.) sits at top of
+     the viewport. Horizontally centered. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   overflow: hidden;
 }
 
@@ -80,9 +85,11 @@ body {
 }
 
 .crt {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  padding-top: 32px;
   z-index: 1;
 }
 
@@ -156,6 +163,29 @@ body {
   border: 1px dashed var(--wb-grey-dark);
   padding: 24px 32px;
   text-align: center;
+}
+
+.sae-mount {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 32px;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.sae-canvas-host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sae-canvas-host canvas {
+  image-rendering: pixelated;
+  background: #000;
 }
 
 .software-failure {

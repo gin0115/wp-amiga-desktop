@@ -1,8 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, beforeEach } from 'vitest';
-import BackScreen from '../BackScreen.jsx';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { useStore } from '../../store.js';
+
+// Stub the SAE loader so the BackScreen tests can observe state transitions
+// without the real loader's network calls or jsdom-incompatible behaviour.
+vi.mock('../../lib/sae-loader.js', () => ({
+  startSae: vi.fn(() => new Promise(() => {})), // never resolves
+  stopSae: vi.fn(),
+}));
+
+import BackScreen from '../BackScreen.jsx';
 
 beforeEach(() => {
   useStore.setState({
@@ -32,11 +40,11 @@ describe('BackScreen', () => {
     expect(screen.getByTestId('crt-loading')).toBeInTheDocument();
   });
 
-  it('renders the running placeholder with a power-off control', () => {
+  it('renders the running state with a corner power-off control + sae mount', () => {
     useStore.setState({ saeStatus: 'running' });
     render(<BackScreen />);
-    expect(screen.getByTestId('crt-running')).toBeInTheDocument();
     expect(screen.getByTestId('power-off')).toBeInTheDocument();
+    expect(screen.getByTestId('sae-mount')).toBeInTheDocument();
   });
 
   it('error state shows Software Failure with Retry / Cancel', async () => {
