@@ -55,6 +55,34 @@ body {
   color: var(--wb-orange);
 }
 
+.boot-placeholder ul {
+  list-style: none;
+  padding: 8px 0 0 0;
+  margin: 0;
+  font-size: 12px;
+}
+
+.boot-placeholder li {
+  padding: 2px 0;
+}
+
+.boot-placeholder .boot-error {
+  margin-top: 8px;
+  color: var(--wb-orange);
+  font-weight: bold;
+}
+
+.boot-placeholder button {
+  margin-top: 8px;
+  font: inherit;
+  background: var(--wb-grey-light);
+  color: var(--wb-black);
+  border: var(--wb-border) solid var(--wb-white);
+  outline: 1px solid var(--wb-black);
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
 /* Reusable chiselled WB3.1 border. Outer white, inner black — gives the
    classic "engraved" look on any container that gets this class. */
 .wb-border-out {
