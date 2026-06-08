@@ -123,6 +123,49 @@ body {
   color: var(--wb-white);
 }
 
+/* ──── Pulldown ────────────────────────────────────────────────────── */
+.pulldown {
+  background: var(--wb-white);
+  color: var(--wb-black);
+  border: 1px solid var(--wb-black);
+  box-shadow: 1px 1px 0 var(--wb-black);
+  z-index: 10000;
+  padding: 2px 0;
+  font-size: 13px;
+}
+
+.pulldown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 3px 14px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  gap: 24px;
+}
+
+.pulldown-item:hover {
+  background: var(--wb-blue);
+  color: var(--wb-white);
+}
+
+.pulldown-item-shortcut {
+  opacity: 0.75;
+  font-size: 12px;
+}
+
+.pulldown-separator {
+  height: 1px;
+  background: var(--wb-black);
+  margin: 2px 4px;
+  opacity: 0.35;
+}
+
 /* ──── Desktop ─────────────────────────────────────────────────────── */
 .desktop {
   flex: 1 1 auto;
