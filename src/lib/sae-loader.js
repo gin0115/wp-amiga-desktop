@@ -107,6 +107,7 @@ export async function startSae({
   bootFloppyUrl,
   hdfUrl,
   onProgress,
+  onLed,
 }) {
   if (!kickstartUrl) {
     throw Object.assign(
@@ -204,20 +205,14 @@ export async function startSae({
     };
   }
   if (cfg.hook?.event) {
-    cfg.hook.event.started = () =>
-      console.log('[SAE] started');
-    cfg.hook.event.stopped = () =>
-      console.log('[SAE] stopped');
+    cfg.hook.event.started = () => onLed?.({ power: true });
+    cfg.hook.event.stopped = () => onLed?.({ power: false });
   }
   if (cfg.hook?.led) {
-    let frames = 0;
-    cfg.hook.led.fps = (v) => {
-      if (frames++ % 60 === 0) console.log(`[SAE] fps=${v}`);
-    };
-    cfg.hook.led.power = (v) =>
-      console.log(`[SAE] power LED=${v}`);
-    cfg.hook.led.df = (n, v) =>
-      console.log(`[SAE] DF${n} LED=${v}`);
+    cfg.hook.led.fps = (v) => onLed?.({ fps: v });
+    cfg.hook.led.power = (v) => onLed?.({ power: !!v });
+    cfg.hook.led.df = (n, v) => onLed?.({ df: { index: n, on: !!v } });
+    cfg.hook.led.hd = (v) => onLed?.({ hd: !!v });
   }
 
   if (hdf && cfg.hardfile?.drive?.[0]) {

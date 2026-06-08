@@ -188,6 +188,118 @@ body {
   background: #000;
 }
 
+/* ──── LED panel ───────────────────────────────────────────────────── */
+.led-panel {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--wb-grey-dark);
+  color: var(--wb-grey-light);
+  font-size: 11px;
+  letter-spacing: 1px;
+  z-index: 2;
+}
+
+.led {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.led-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  border: 1px solid #000;
+  box-shadow: inset 0 0 1px #000;
+}
+
+.led-power .led-dot[data-on] {
+  background: #19ff58;
+  box-shadow: 0 0 6px #19ff58, inset 0 0 2px #fff;
+}
+
+.led-floppy .led-dot[data-on] {
+  background: #ff3030;
+  box-shadow: 0 0 5px #ff3030, inset 0 0 1px #ffaaaa;
+}
+
+.led-hdd .led-dot[data-on] {
+  background: #ffd000;
+  box-shadow: 0 0 5px #ffb000, inset 0 0 1px #ffe588;
+}
+
+.led-fps {
+  margin-left: auto;
+  padding-left: 8px;
+  border-left: 1px solid var(--wb-grey-dark);
+  opacity: 0.75;
+}
+
+/* ──── DriveSelector ──────────────────────────────────────────────── */
+.drive-selector {
+  font-size: 12px;
+}
+
+.drive-selector h3 {
+  font-size: 13px;
+  margin: 10px 0 6px;
+}
+
+.drive-note {
+  margin: 0 0 10px;
+  padding: 6px 8px;
+  background: var(--wb-grey-light);
+  border: 1px solid var(--wb-black);
+}
+
+.drive-row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto auto auto auto;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+  border-bottom: 1px dotted var(--wb-grey-dark);
+}
+
+.drive-row-slot {
+  font-weight: bold;
+}
+
+.drive-row-name {
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.drive-row-name em {
+  color: var(--wb-grey-dark);
+  font-style: italic;
+}
+
+.drive-row-dirty {
+  color: var(--wb-orange);
+  margin-left: 4px;
+}
+
+.drive-row button {
+  font-size: 11px;
+  padding: 2px 8px;
+  background: var(--wb-grey-light);
+  border: 1px solid var(--wb-black);
+  cursor: pointer;
+}
+
+.drive-row button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .software-failure {
   width: min(440px, 80%);
 }

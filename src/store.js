@@ -106,6 +106,74 @@ export const useStore = create((set, get) => ({
   saeProgress: 0,
   saeError: null,
 
+  // SAE instance reference so other slices (drives) can call sae.insert(n)
+  // and sae.eject(n) for live floppy swapping.
+  saeRef: null,
+  setSaeRef(ref) {
+    set({ saeRef: ref });
+  },
+
+  // ────────────────────────────────────────────────────────────────
+  // ledsSlice — Amiga front-panel indicators wired to SAE's hook.led.*
+  // power: lit while the emulator's CPU is running
+  // df:    one boolean per floppy drive (DF0..DF3) — true when reading
+  // hd:    hardfile activity
+  // fps:   frames/sec readout
+  // ────────────────────────────────────────────────────────────────
+  leds: {
+    power: false,
+    df: [false, false, false, false],
+    hd: false,
+    fps: 0,
+  },
+  setLed(key, value, index) {
+    set((s) => {
+      const next = { ...s.leds };
+      if (key === 'df') {
+        next.df = [...s.leds.df];
+        next.df[index] = !!value;
+      } else if (key === 'power') {
+        next.power = !!value;
+      } else if (key === 'hd') {
+        next.hd = !!value;
+      } else if (key === 'fps') {
+        next.fps = Number(value) || 0;
+      }
+      return { leds: next };
+    });
+  },
+
+  // ────────────────────────────────────────────────────────────────
+  // drivesSlice — visible drive bay state. Each slot holds the currently
+  // mounted image's filename + a dirty flag (true once SAE has written
+  // to it). The actual byte buffer lives in SAE's config; we just track
+  // metadata here so UI can render it.
+  // ────────────────────────────────────────────────────────────────
+  drives: {
+    df0: { name: null, dirty: false },
+    df1: { name: null, dirty: false },
+    df2: { name: null, dirty: false },
+    df3: { name: null, dirty: false },
+    dh0: { name: null, dirty: false },
+    dh1: { name: null, dirty: false },
+  },
+  setDriveName(slot, name) {
+    set((s) => ({
+      drives: {
+        ...s.drives,
+        [slot]: { ...s.drives[slot], name, dirty: false },
+      },
+    }));
+  },
+  setDriveDirty(slot, dirty = true) {
+    set((s) => ({
+      drives: {
+        ...s.drives,
+        [slot]: { ...s.drives[slot], dirty: !!dirty },
+      },
+    }));
+  },
+
   powerOn() {
     const { bootToken } = get();
     set({

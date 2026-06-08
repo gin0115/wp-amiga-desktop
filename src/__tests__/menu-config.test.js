@@ -2,9 +2,9 @@ import { describe, it, expect } from 'vitest';
 import { MENU_CONFIG, shortcutMap } from '../lib/menu-config.js';
 
 describe('MENU_CONFIG', () => {
-  it('exposes the three Phase 1 static menus', () => {
+  it('exposes the static top-level menus in order', () => {
     const ids = MENU_CONFIG.map((m) => m.id);
-    expect(ids).toEqual(['workbench', 'window', 'icons']);
+    expect(ids).toEqual(['workbench', 'window', 'disks', 'icons']);
   });
 
   it('every non-separator item has a label', () => {
