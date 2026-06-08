@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "aros-bootdisk",
+      "title": "AROS Boot Disk",
+      "category": "Tools",
+      "kind": "adf",
+      "slot": "df0",
+      "url": "./roms/aros-bootdisk.adf",
+      "description": "Bundled AROS m68k boot floppy. Boots the Kickstart to the OS-load stage."
+    }
+  ]
+}
