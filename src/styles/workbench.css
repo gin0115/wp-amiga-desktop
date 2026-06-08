@@ -1,0 +1,38 @@
+:root {
+  /* Workbench 3.1 palette — sampled from TAWS, refined in step2 */
+  --wb-blue: #0055aa;
+  --wb-orange: #ff8a00;
+  --wb-white: #ffffff;
+  --wb-black: #000000;
+  --wb-grey: #aaaaaa;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  color: var(--wb-white);
+  background: var(--wb-blue);
+}
+
+.amiga-root {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  background: var(--wb-blue);
+}
+
+.boot-placeholder {
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.boot-placeholder p {
+  margin: 0;
+  font-size: 24px;
+}
+
+.boot-placeholder .boot-subtitle {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--wb-orange);
+}
