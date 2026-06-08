@@ -1,4 +1,5 @@
 import { useStore, selectBackVisible } from '../store.js';
+import SAECanvasHost from './SAECanvasHost.jsx';
 
 /**
  * The back screen — the second 'monitor' behind the front Workbench screen.
@@ -17,9 +18,12 @@ export default function BackScreen() {
   const status = useStore((s) => s.saeStatus);
   const progress = useStore((s) => s.saeProgress);
   const error = useStore((s) => s.saeError);
+  const bootToken = useStore((s) => s.bootToken);
   const powerOn = useStore((s) => s.powerOn);
   const powerOff = useStore((s) => s.powerOff);
   const visible = useStore(selectBackVisible);
+
+  const hasSae = status === 'loading' || status === 'running';
 
   return (
     <div
@@ -32,11 +36,16 @@ export default function BackScreen() {
       <div className="crt">
         {status === 'off' && <PoweredOff onPowerOn={powerOn} />}
         {status === 'loading' && <Loading progress={progress} />}
-        {status === 'running' && <RunningPlaceholder onPowerOff={powerOff} />}
+        {status === 'running' && <RunningChrome onPowerOff={powerOff} />}
         {status === 'error' && (
           <SoftwareFailure error={error} onRetry={powerOn} onCancel={powerOff} />
         )}
       </div>
+      {hasSae && (
+        <div className="sae-mount" data-testid="sae-mount">
+          <SAECanvasHost bootToken={bootToken} />
+        </div>
+      )}
     </div>
   );
 }
@@ -95,23 +104,17 @@ function Loading({ progress }) {
   );
 }
 
-function RunningPlaceholder({ onPowerOff }) {
+function RunningChrome({ onPowerOff }) {
   return (
-    <div className="crt-running" data-testid="crt-running">
-      <div className="crt-canvas-placeholder">
-        <p>SAE canvas mounts here in step9.</p>
-        <p className="crt-caption">AROS Workbench booted.</p>
-      </div>
-      <button
-        type="button"
-        className="power-gadget power-off"
-        data-testid="power-off"
-        onClick={onPowerOff}
-        aria-label="Power off AROS Workbench"
-      >
-        Power off
-      </button>
-    </div>
+    <button
+      type="button"
+      className="power-off-corner"
+      data-testid="power-off"
+      onClick={onPowerOff}
+      aria-label="Power off AROS Workbench"
+    >
+      ⏻ Power off
+    </button>
   );
 }
 

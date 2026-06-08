@@ -20,7 +20,8 @@ npm run dev
 Copy `.env.example` to `.env.local` and adjust:
 
 - `VITE_WP_BASE_URL` — REST base. Defaults to `/mocks/wp-json` (bundled fixtures) so dev works offline. Point at `https://example.com/wp-json` for live WP data.
-- `VITE_HDF_URL` — URL of the AROS Workbench hardfile. Leave empty to disable the emulator.
+- `VITE_KICKSTART_URL` — URL of a Kickstart ROM (use a free AROS replacement). Required for the SAE emulator to boot. Without it, clicking the Power gadget on the back screen shows a clear "ROM not configured" Software Failure.
+- `VITE_HDF_URL` — URL of an AROS Workbench hardfile (optional). Mounts as DH0:. Skip to boot Kickstart-only.
 
 WP-side requirement for live data: add `Access-Control-Allow-Origin: <app-origin>` headers to `/wp-json/` (a sample mu-plugin will ship later in this repo).
 

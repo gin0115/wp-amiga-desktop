@@ -4,13 +4,17 @@ import { wp, _internal } from '../lib/wp.js';
 const { url, getJson } = _internal;
 
 describe('wp.js URL building', () => {
-  it('strips trailing slashes from base and leading slashes from path', () => {
-    expect(url('wp/v2/posts')).toBe('/mocks/wp-json/wp/v2/posts');
-    expect(url('/wp/v2/posts')).toBe('/mocks/wp-json/wp/v2/posts');
+  it('appends .json in mock mode (default base) and inserts before query', () => {
+    expect(url('wp/v2/posts')).toBe('./mocks/wp-json/wp/v2/posts.json');
+    expect(url('/wp/v2/posts')).toBe('./mocks/wp-json/wp/v2/posts.json');
+    expect(url('wp/v2/posts/101?_embed=1')).toBe(
+      './mocks/wp-json/wp/v2/posts/101.json?_embed=1',
+    );
   });
 
-  it('exposes the resolved baseUrl', () => {
-    expect(wp.baseUrl).toBe('/mocks/wp-json');
+  it('exposes the resolved baseUrl and mock flag', () => {
+    expect(wp.baseUrl).toBe('./mocks/wp-json');
+    expect(wp.isMock).toBe(true);
   });
 });
 

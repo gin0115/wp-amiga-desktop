@@ -21,3 +21,4 @@ Each PNG under `docs/screenshots/` is named `stepN-<letter>.png` where the step 
 | `step7-b.png` | LOADING state after Power click: Amiga-orange progress bar at 0% |
 | `step8-a.png` | front screen dragged ~250px; back-screen CRT visible at top, Workbench front below |
 | `step8-b.png` | full pull-down: back screen dominates, Power clicked → LOADING progress shown |
+| `step9-a.png` | SAE smoke: Power click without VITE_KICKSTART_URL shows the orange Software Failure requester |

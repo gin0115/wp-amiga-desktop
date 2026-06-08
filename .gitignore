@@ -12,3 +12,5 @@ test-results
 .idea
 .vscode
 .claude
+public/roms/*
+!public/roms/README.md
