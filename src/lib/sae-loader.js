@@ -100,6 +100,8 @@ async function fetchAsUint8(url, onProgress) {
   return out;
 }
 
+import { getShadow } from './disk-persist.js';
+
 export async function startSae({
   container,
   kickstartUrl,
@@ -140,16 +142,30 @@ export async function startSae({
 
   // Allocate ROM (small), extension ROM (small, AROS-specific), and
   // optional HDF (large) in parallel; progress is fed back as 0..1.
+  // Prefer the IDB shadow over the source URL — that's how user writes
+  // survive a reload. Shadows only exist for env-loaded disks (not the
+  // ROM/ext which are immutable hardware data).
+  async function fetchOrShadow(slot, url, sliceShare, base) {
+    if (!url) return null;
+    const sub = onSubProgress(sliceShare, base);
+    try {
+      const shadow = await getShadow(slot, url);
+      if (shadow?.data) {
+        sub?.(1);
+        return shadow.data;
+      }
+    } catch {
+      /* IDB unavailable — fall back to network */
+    }
+    return fetchAsUint8(url, sub);
+  }
+
   const romP = fetchAsUint8(kickstartUrl, onSubProgress(0.15, 0));
   const extP = kickstartExtUrl
     ? fetchAsUint8(kickstartExtUrl, onSubProgress(0.15, 0.15))
     : Promise.resolve(null);
-  const floppyP = bootFloppyUrl
-    ? fetchAsUint8(bootFloppyUrl, onSubProgress(0.2, 0.3))
-    : Promise.resolve(null);
-  const hdfP = hdfUrl
-    ? fetchAsUint8(hdfUrl, onSubProgress(0.5, 0.5))
-    : Promise.resolve(null);
+  const floppyP = fetchOrShadow('df0', bootFloppyUrl, 0.2, 0.3);
+  const hdfP = fetchOrShadow('dh0', hdfUrl, 0.5, 0.5);
   const [rom, ext, floppy, hdf] = await Promise.all([romP, extP, floppyP, hdfP]);
 
   // Ensure the container has a stable DOM id SAE can target.
