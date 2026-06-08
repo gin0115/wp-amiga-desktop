@@ -17,3 +17,5 @@ Each PNG under `docs/screenshots/` is named `stepN-<letter>.png` where the step 
 | `step6-c.png` | About Workbench credits window opened from the Workbench menu |
 | `step6-d.png` | category drawer (Workbench) listing posts; clicking one opens the post window |
 | `step6-e.png` | a window moved by dragging the title bar |
+| `step7-a.png` | back screen in OFF state: dark CRT, scanlines, centred Power gadget; front screen pushed down |
+| `step7-b.png` | LOADING state after Power click: Amiga-orange progress bar at 0% |

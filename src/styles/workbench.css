@@ -47,21 +47,147 @@ body {
   width: 100%;
 }
 
-/* ──── BackScreen (placeholder until step7) ────────────────────────── */
+/* ──── BackScreen ──────────────────────────────────────────────────── */
 .back-screen {
   position: absolute;
   inset: 0;
-  background: #111;
+  background: radial-gradient(ellipse at center, #1a1a1a 0%, #050505 80%);
   color: var(--wb-grey-light);
   display: grid;
   place-items: center;
+  overflow: hidden;
 }
 
-.back-screen-placeholder {
-  margin: 0;
+.back-screen::before {
+  /* CRT scanline overlay */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+.crt {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  z-index: 1;
+}
+
+.crt-caption {
+  margin: 12px 0 0;
   font-size: 12px;
   letter-spacing: 1px;
-  opacity: 0.6;
+  opacity: 0.7;
+}
+
+.power-gadget {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--wb-grey-light);
+  border: 1px solid var(--wb-grey-dark);
+  padding: 18px 28px;
+  cursor: pointer;
+  font: inherit;
+  transition: color 120ms, border-color 120ms;
+}
+
+.power-gadget:hover {
+  color: var(--wb-orange);
+  border-color: var(--wb-orange);
+}
+
+.power-glyph {
+  display: inline-block;
+  line-height: 0;
+}
+
+.power-label {
+  font-size: 14px;
+  letter-spacing: 1.5px;
+}
+
+.power-off {
+  margin-top: 12px;
+}
+
+.crt-loading {
+  width: 320px;
+}
+
+.crt-progress {
+  margin-top: 8px;
+  background: var(--wb-black);
+  border: 1px solid var(--wb-grey-light);
+  height: 14px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.crt-progress-fill {
+  height: 100%;
+  background: var(--wb-orange);
+  transition: width 120ms linear;
+}
+
+.crt-running {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  color: var(--wb-grey-light);
+}
+
+.crt-canvas-placeholder {
+  border: 1px dashed var(--wb-grey-dark);
+  padding: 24px 32px;
+  text-align: center;
+}
+
+.software-failure {
+  width: min(440px, 80%);
+}
+
+.software-failure-box {
+  border: 2px solid var(--wb-orange);
+  padding: 16px;
+  background: var(--wb-black);
+  color: var(--wb-orange);
+}
+
+.software-failure-title {
+  margin: 0 0 6px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.software-failure-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.amiga-button {
+  background: var(--wb-grey-light);
+  color: var(--wb-black);
+  border: 1px solid var(--wb-black);
+  padding: 4px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.amiga-button:hover {
+  background: var(--wb-blue);
+  color: var(--wb-white);
 }
 
 /* ──── FrontScreen ─────────────────────────────────────────────────── */
