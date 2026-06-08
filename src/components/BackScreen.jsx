@@ -1,4 +1,4 @@
-import { useStore } from '../store.js';
+import { useStore, selectBackVisible } from '../store.js';
 
 /**
  * The back screen — the second 'monitor' behind the front Workbench screen.
@@ -19,9 +19,16 @@ export default function BackScreen() {
   const error = useStore((s) => s.saeError);
   const powerOn = useStore((s) => s.powerOn);
   const powerOff = useStore((s) => s.powerOff);
+  const visible = useStore(selectBackVisible);
 
   return (
-    <div className="back-screen" data-testid="back-screen" data-status={status}>
+    <div
+      className="back-screen"
+      data-testid="back-screen"
+      data-status={status}
+      data-visible={visible || undefined}
+      style={{ pointerEvents: visible ? 'auto' : 'none' }}
+    >
       <div className="crt">
         {status === 'off' && <PoweredOff onPowerOn={powerOn} />}
         {status === 'loading' && <Loading progress={progress} />}

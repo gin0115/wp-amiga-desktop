@@ -1,6 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { shot } from './helpers/screenshot.js';
 
+async function pullDownScreen(page, dy) {
+  const bar = page.getByTestId('screen-title-bar');
+  const box = await bar.boundingBox();
+  const x = box.x + box.width / 2;
+  const y = box.y + box.height / 2;
+  await page.mouse.move(x, y);
+  await page.mouse.down();
+  await page.mouse.move(x, y + dy, { steps: 8 });
+  await page.mouse.up();
+}
+
 test.describe('step7: back screen powered-off + power gadget', () => {
   test('back screen starts in OFF state with a power gadget', async ({
     page,
@@ -10,12 +21,8 @@ test.describe('step7: back screen powered-off + power gadget', () => {
     await expect(back).toHaveAttribute('data-status', 'off');
     await expect(page.getByTestId('crt-off')).toBeAttached();
     await expect(page.getByTestId('power-on')).toBeAttached();
-    // step7-a captures the back screen in isolation by forcing the front
-    // screen out of the way via inline style (real drag lands in step8).
-    await page.evaluate(() => {
-      const front = document.querySelector('.front-screen');
-      if (front) front.style.transform = `translate3d(0, 90vh, 0)`;
-    });
+    // Pull the front screen down so the back is fully visible for the shot.
+    await pullDownScreen(page, 700);
     await shot(page, 'step7-a');
   });
 
@@ -23,11 +30,7 @@ test.describe('step7: back screen powered-off + power gadget', () => {
     page,
   }) => {
     await page.goto('/');
-    // Force the back screen visible so we can interact with it.
-    await page.evaluate(() => {
-      const root = document.querySelector('.front-screen');
-      if (root) root.style.transform = `translate3d(0, 90vh, 0)`;
-    });
+    await pullDownScreen(page, 700);
     await page.getByTestId('power-on').click();
     await expect(page.getByTestId('back-screen')).toHaveAttribute(
       'data-status',

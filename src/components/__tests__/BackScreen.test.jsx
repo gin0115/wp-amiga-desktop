@@ -6,6 +6,9 @@ import { useStore } from '../../store.js';
 
 beforeEach(() => {
   useStore.setState({
+    // offsetY > 0 = backVisible so pointer-events are enabled during tests
+    offsetY: 400,
+    isDragging: false,
     saeStatus: 'off',
     bootToken: 0,
     saeProgress: 0,

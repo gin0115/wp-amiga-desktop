@@ -19,3 +19,5 @@ Each PNG under `docs/screenshots/` is named `stepN-<letter>.png` where the step 
 | `step6-e.png` | a window moved by dragging the title bar |
 | `step7-a.png` | back screen in OFF state: dark CRT, scanlines, centred Power gadget; front screen pushed down |
 | `step7-b.png` | LOADING state after Power click: Amiga-orange progress bar at 0% |
+| `step8-a.png` | front screen dragged ~250px; back-screen CRT visible at top, Workbench front below |
+| `step8-b.png` | full pull-down: back screen dominates, Power clicked → LOADING progress shown |
