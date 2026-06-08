@@ -114,6 +114,20 @@ export const useStore = create((set, get) => ({
   },
 
   // ────────────────────────────────────────────────────────────────
+  // backModal — which gadget on the emulator panel is showing its
+  // control modal. Slot id string ('df0'..'dh1' | 'power') or null.
+  // Modal lives entirely inside BackScreen (NOT the front-screen
+  // WindowManager) — emulator UI never touches the blog.
+  // ────────────────────────────────────────────────────────────────
+  backModalSlot: null,
+  openBackModal(slot) {
+    set({ backModalSlot: slot });
+  },
+  closeBackModal() {
+    set({ backModalSlot: null });
+  },
+
+  // ────────────────────────────────────────────────────────────────
   // ledsSlice — Amiga front-panel indicators wired to SAE's hook.led.*
   // power: lit while the emulator's CPU is running
   // df:    one boolean per floppy drive (DF0..DF3) — true when reading

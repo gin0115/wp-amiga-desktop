@@ -1,29 +1,22 @@
-// Phase 1 menu definitions. Each top-level menu has an id (used as the
-// data-testid suffix and for openMenuId state) and a list of items.
+// Front-screen (blog) menu definitions. Each top-level menu has an id (used
+// as the data-testid suffix and for openMenuId state) and a list of items.
 //
 // Item shape:
 //   { label, shortcut?, separator?, action?(store) }
 //
 // `shortcut` is the single letter shown right-aligned in the pulldown and
-// fired by Ctrl+<letter> globally. Use null/undefined for items without one.
+// fired by Ctrl+<letter> globally.
 //
-// `action(store)` receives the zustand store's getState/setState API
-// (the whole store) — pass it through dispatchMenuAction in this module
-// so menu items can stay declarative.
+// IMPORTANT: this is the BLOG menu. No emulator controls live here.
+// Drive/disk/library UI lives on the back screen (BackScreen.jsx) as
+// LED-gadgets that open in-place modals — never as front-screen windows.
 
 import { ABOUT_WINDOW } from '../components/AmigaWindow.jsx';
-import { DRIVES_WINDOW } from '../components/DriveSelector.jsx';
-import { LIBRARY_WINDOW } from '../components/LibraryDrawer.jsx';
 
 const reload = () => window.location.reload();
-
 const openAbout = (store) => store.openWindow(ABOUT_WINDOW);
-const openDrives = (store) => store.openWindow(DRIVES_WINDOW);
-const openLibrary = (store) => store.openWindow(LIBRARY_WINDOW);
 
 const todoWindows = (label) => () => {
-  // Stub for the Phase 1 menu items that don't yet have real wiring. Logs
-  // so the click is observable in the console / Playwright traces.
   // eslint-disable-next-line no-console
   console.log(`[menu] todo: real action for "${label}"`);
 };
@@ -52,14 +45,6 @@ export const MENU_CONFIG = [
       { label: 'Update', action: todoWindows('Update') },
       { label: 'Snapshot', action: todoWindows('Snapshot') },
       { label: 'Clean Up', action: todoWindows('Clean Up') },
-    ],
-  },
-  {
-    id: 'disks',
-    title: 'Disks',
-    items: [
-      { label: 'Manage Drives...', shortcut: 'D', action: openDrives },
-      { label: 'Games & Demos...', shortcut: 'G', action: openLibrary },
     ],
   },
   {

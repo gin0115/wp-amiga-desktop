@@ -26,3 +26,5 @@ Each PNG under `docs/screenshots/` is named `stepN-<letter>.png` where the step 
 | `step11-b.png` | LED panel bottom-left of back screen: PWR / DF0-DF3 / HD / FPS readout |
 | `step12-a.png` | Games & Demos drawer icon + Library window grouping items by category |
 | `step13-a.png` | Disks window with per-row Reset gadget (deletes the IDB shadow for that slot's source) |
+| `step14-a.png` | gadget strip directly under emulator: PWR + DF0-3 + DH0-1 + fps; empty slots dimmed/mono, mounted slots in colour |
+| `step14-b.png` | clicking a drive gadget opens its modal bounded to the back-screen (insert / library / new blank / save / eject / reset shadow) |

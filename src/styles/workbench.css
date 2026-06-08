@@ -165,15 +165,38 @@ body {
   text-align: center;
 }
 
-.sae-mount {
+/* Back-stage anchors at the top-left of the back screen and is sized to
+   the visible open area (set inline via the offsetY-driven height style).
+   Centers the emulator inside that area and chooses where to put the
+   controls (below for tall, right for short). */
+.back-stage {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.back-stage[data-layout='stacked'] {
+  flex-direction: column;
+  align-items: center;
+}
+
+.back-stage[data-layout='side'] {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.sae-mount {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 32px;
-  z-index: 0;
   pointer-events: auto;
 }
 
@@ -181,6 +204,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 2px solid var(--wb-grey-dark);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
 }
 
 .sae-canvas-host canvas {
@@ -188,16 +213,13 @@ body {
   background: #000;
 }
 
-/* ──── LED panel ───────────────────────────────────────────────────── */
-.led-panel {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
+/* ──── Gadget panel ────────────────────────────────────────────────── */
+.gadget-panel {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: stretch;
+  gap: 6px;
   padding: 6px 10px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.85);
   border: 1px solid var(--wb-grey-dark);
   color: var(--wb-grey-light);
   font-size: 11px;
@@ -205,162 +227,308 @@ body {
   z-index: 2;
 }
 
-.led {
-  display: inline-flex;
-  align-items: center;
+.back-stage[data-layout='side'] .gadget-panel {
+  flex-direction: column;
+  align-items: stretch;
   gap: 4px;
+  min-width: 96px;
 }
 
-.led-dot {
-  width: 9px;
-  height: 9px;
+.gadget-fps {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  border-left: 1px solid var(--wb-grey-dark);
+  opacity: 0.75;
+}
+
+.back-stage[data-layout='side'] .gadget-fps {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: 0;
+  border-top: 1px solid var(--wb-grey-dark);
+  padding-top: 4px;
+  margin-top: 4px;
+  justify-content: center;
+}
+
+/* ──── DriveGadget ─────────────────────────────────────────────────── */
+.drive-gadget {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 56px;
+  padding: 4px 6px;
+  background: transparent;
+  color: inherit;
+  border: 1px solid transparent;
+  font: inherit;
+  cursor: pointer;
+  text-align: center;
+}
+
+.drive-gadget:hover {
+  border-color: var(--wb-grey-dark);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.drive-gadget:focus-visible {
+  outline: 1px dotted var(--wb-grey-light);
+  outline-offset: -1px;
+}
+
+.drive-gadget-glyph {
+  position: relative;
+  display: inline-flex;
+  line-height: 0;
+  color: var(--wb-grey-light);
+}
+
+.drive-gadget.kind-power .drive-gadget-glyph {
+  color: #19ff58;
+}
+
+.drive-gadget.kind-floppy .drive-gadget-glyph {
+  color: #d8d8d8;
+}
+
+.drive-gadget.kind-hardfile .drive-gadget-glyph {
+  color: #ffd277;
+}
+
+/* Empty drives: same icon, dimmed + desaturated. Mounted = full colour. */
+.drive-gadget.state-empty .drive-gadget-glyph {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+
+.drive-gadget-led {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #2a2a2a;
   border: 1px solid #000;
   box-shadow: inset 0 0 1px #000;
 }
 
-.led-power .led-dot[data-on] {
+.drive-gadget.kind-power .drive-gadget-led[data-on] {
   background: #19ff58;
   box-shadow: 0 0 6px #19ff58, inset 0 0 2px #fff;
 }
 
-.led-floppy .led-dot[data-on] {
+.drive-gadget.kind-floppy .drive-gadget-led[data-on] {
   background: #ff3030;
   box-shadow: 0 0 5px #ff3030, inset 0 0 1px #ffaaaa;
 }
 
-.led-hdd .led-dot[data-on] {
+.drive-gadget.kind-hardfile .drive-gadget-led[data-on] {
   background: #ffd000;
   box-shadow: 0 0 5px #ffb000, inset 0 0 1px #ffe588;
 }
 
-.led-fps {
-  margin-left: auto;
-  padding-left: 8px;
-  border-left: 1px solid var(--wb-grey-dark);
-  opacity: 0.75;
+.drive-gadget-label {
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-/* ──── DriveSelector ──────────────────────────────────────────────── */
-.drive-selector {
+.drive-gadget-name {
+  font-size: 9px;
+  letter-spacing: 0;
+  opacity: 0.7;
+  max-width: 56px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drive-gadget.state-empty .drive-gadget-name {
+  opacity: 0.4;
+  font-style: italic;
+}
+
+/* ──── BackScreenModal ─────────────────────────────────────────────── */
+.back-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.back-modal {
+  width: min(560px, 90%);
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  background: var(--wb-grey-light);
+  color: var(--wb-black);
+  border: 1px solid var(--wb-black);
+  box-shadow: 2px 2px 0 var(--wb-black);
+  font-family: 'Topaz', monospace;
   font-size: 12px;
 }
 
-.drive-selector h3 {
-  font-size: 13px;
-  margin: 10px 0 6px;
-}
-
-.drive-note {
-  margin: 0 0 10px;
-  padding: 6px 8px;
-  background: var(--wb-grey-light);
-  border: 1px solid var(--wb-black);
-}
-
-.drive-row {
-  display: grid;
-  grid-template-columns: 48px 1fr auto auto auto auto auto;
+.back-modal-titlebar {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 3px 0;
-  border-bottom: 1px dotted var(--wb-grey-dark);
+  gap: 8px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      var(--wb-blue) 0,
+      var(--wb-blue) 2px,
+      var(--wb-white) 2px,
+      var(--wb-white) 3px
+    );
+  color: var(--wb-white);
+  padding: 2px 6px;
+  border-bottom: 1px solid var(--wb-black);
 }
 
-.drive-row-slot {
+.back-modal-title {
+  flex: 1 1 auto;
   font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 1px 0 var(--wb-black);
 }
 
-.drive-row-name {
-  font-family: monospace;
+.back-modal-close {
+  background: var(--wb-grey-light);
+  color: var(--wb-black);
+  border: 1px solid var(--wb-black);
+  padding: 0 6px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.back-modal-body {
+  padding: 10px 12px;
+  overflow: auto;
+  background: var(--wb-grey-light);
+}
+
+/* ──── DriveControl ────────────────────────────────────────────────── */
+.drive-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.drive-control-note {
+  margin: 0;
+  padding: 4px 8px;
+  background: var(--wb-white);
+  border: 1px solid var(--wb-black);
   font-size: 11px;
 }
 
-.drive-row-name em {
+.drive-control-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drive-control-label {
+  font-weight: bold;
+}
+
+.drive-control-name {
+  font-family: monospace;
+}
+
+.drive-control-name em {
   color: var(--wb-grey-dark);
   font-style: italic;
 }
 
-.drive-row-dirty {
+.drive-control-dirty {
   color: var(--wb-orange);
-  margin-left: 4px;
 }
 
-.drive-row button {
+.drive-control-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.drive-control-actions button {
   font-size: 11px;
-  padding: 2px 8px;
+  padding: 3px 10px;
   background: var(--wb-grey-light);
   border: 1px solid var(--wb-black);
   cursor: pointer;
 }
 
-.drive-row button:disabled {
+.drive-control-actions button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-/* ──── LibraryDrawer ──────────────────────────────────────────────── */
-.library-drawer {
-  font-size: 12px;
+.drive-control-status {
+  margin: 4px 0 0;
+  font-style: italic;
+  color: var(--wb-grey-dark);
 }
 
-.library-group {
-  margin-bottom: 12px;
+.drive-control-error {
+  margin: 4px 0 0;
+  padding: 4px 8px;
+  background: var(--wb-black);
+  color: var(--wb-orange);
+  font-size: 11px;
 }
 
-.library-group h3 {
-  font-size: 13px;
-  margin: 8px 0 4px;
-}
-
-.library-list {
+/* ──── LibraryPicker (inside DriveControl modal) ───────────────────── */
+.library-picker {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 4px;
+  max-height: 220px;
+  overflow: auto;
 }
 
-.library-item {
+.library-picker-item {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
   padding: 6px 8px;
-  background: var(--wb-grey-light);
+  background: var(--wb-white);
   border: 1px solid var(--wb-black);
   font: inherit;
   text-align: left;
   cursor: pointer;
 }
 
-.library-item:hover:not(:disabled) {
+.library-picker-item:hover:not(:disabled) {
   background: var(--wb-blue);
   color: var(--wb-white);
 }
 
-.library-item:disabled {
+.library-picker-item:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.library-item-title {
+.library-picker-title {
   font-weight: bold;
 }
 
-.library-item-meta {
+.library-picker-meta {
   font-size: 10px;
   opacity: 0.7;
-}
-
-.library-error {
-  margin-top: 8px;
-  padding: 4px 8px;
-  background: var(--wb-black);
-  color: var(--wb-orange);
-  font-size: 11px;
 }
 
 .software-failure {
