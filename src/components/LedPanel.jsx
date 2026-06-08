@@ -58,7 +58,7 @@ export default function LedPanel() {
         />
       ))}
       <span className="gadget-fps" data-testid="led-fps">
-        {leds.fps} fps
+        {Math.round(leds.fps)} fps
       </span>
     </div>
   );
