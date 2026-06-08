@@ -1,16 +1,35 @@
 :root {
-  /* Workbench 3.1 palette — sampled from TAWS, refined in step2 */
-  --wb-blue: #0055aa;
-  --wb-orange: #ff8a00;
+  /* Workbench 3.1 four-colour palette.
+     Sampled from TAWS (taws.ch/WB.html) and lightly tweaked for accurate
+     CRT-feel on modern sRGB displays. These are the canonical names used
+     across the app's components. */
+  --wb-blue: #0055aa;       /* default screen background */
+  --wb-orange: #ff8a00;     /* accent / focused title bar stripes */
   --wb-white: #ffffff;
   --wb-black: #000000;
-  --wb-grey: #aaaaaa;
+
+  /* Derived neutrals (intuition's chiselled-border greys). */
+  --wb-grey-light: #aaaaaa;
+  --wb-grey-dark: #555555;
+
+  /* Standard metrics — Workbench 3.1 screen title bar was 11 scanlines
+     of Topaz; we round up to 24px to give pointers a real target. */
+  --wb-title-h: 24px;
+  --wb-border: 2px;
+}
+
+html,
+body,
+#root {
+  background: var(--wb-blue);
 }
 
 body {
-  font-family: system-ui, sans-serif;
+  font-family: 'Topaz', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.2;
   color: var(--wb-white);
-  background: var(--wb-blue);
+  letter-spacing: 0;
 }
 
 .amiga-root {
@@ -23,7 +42,6 @@ body {
 
 .boot-placeholder {
   text-align: center;
-  letter-spacing: 1px;
 }
 
 .boot-placeholder p {
@@ -35,4 +53,16 @@ body {
   margin-top: 8px;
   font-size: 12px;
   color: var(--wb-orange);
+}
+
+/* Reusable chiselled WB3.1 border. Outer white, inner black — gives the
+   classic "engraved" look on any container that gets this class. */
+.wb-border-out {
+  border: var(--wb-border) solid var(--wb-white);
+  outline: 1px solid var(--wb-black);
+}
+
+.wb-border-in {
+  border: var(--wb-border) solid var(--wb-black);
+  outline: 1px solid var(--wb-white);
 }

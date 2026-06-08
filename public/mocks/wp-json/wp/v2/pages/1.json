@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "date": "2026-01-12T10:00:00",
+  "slug": "about",
+  "status": "publish",
+  "type": "page",
+  "link": "https://example.com/about/",
+  "title": { "rendered": "About" },
+  "content": {
+    "rendered": "<p>This is a remote WordPress site wearing an Amiga 1200 Workbench 3.1 jacket. Every post you see is fetched headlessly via the WP REST API and rendered inside a draggable Amiga window.</p><p>Drag the top title bar down to reveal the second screen. That's where the real Amiga lives.</p>",
+    "protected": false
+  },
+  "excerpt": { "rendered": "<p>About this Workbench-styled site.</p>" },
+  "featured_media": 0
+}

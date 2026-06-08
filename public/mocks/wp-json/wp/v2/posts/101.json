@@ -1,0 +1,26 @@
+{
+  "id": 101,
+  "date": "2026-05-01T08:00:00",
+  "slug": "workbench-3-1-release-notes",
+  "status": "publish",
+  "type": "post",
+  "link": "https://example.com/workbench-3-1-release-notes/",
+  "title": { "rendered": "Workbench 3.1 Release Notes" },
+  "excerpt": { "rendered": "<p>What shipped with Workbench 3.1 in 1994, and what's still useful in 2026.</p>" },
+  "content": {
+    "rendered": "<p>Workbench 3.1 shipped in 1994 with Kickstart 40.68. It was the last 'classic' release of AmigaOS in the Commodore era and the version most longtime Amiga users still consider definitive.</p><h2>What's in the box</h2><ul><li>The familiar four-colour palette and Topaz 8 font.</li><li>Datatypes for transparent image, sound, and text decoding.</li><li>Crashed-but-recoverable multitasking via Exec.library.</li></ul><p>The classic title bar gadgets — close, depth, zoom, sizing — are <em>all there</em>, and you'll find faithful reproductions of each on this site.</p><blockquote><p>Guru meditations are still beautiful. Don't @ us.</p></blockquote>",
+    "protected": false
+  },
+  "featured_media": 1,
+  "categories": [1],
+  "_embedded": {
+    "wp:featuredmedia": [
+      {
+        "id": 1,
+        "source_url": "https://placehold.co/600x400/0055aa/ff8a00?text=Workbench+3.1",
+        "alt_text": "Mock featured image for Workbench 3.1 Release Notes",
+        "media_type": "image"
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Topaz';
+  src:
+    url('/fonts/topaz.woff2') format('woff2'),
+    url('/fonts/topaz.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}

@@ -1,0 +1,16 @@
+{
+  "id": 104,
+  "date": "2026-05-22T08:00:00",
+  "slug": "aros-vision-tour",
+  "status": "publish",
+  "type": "post",
+  "link": "https://example.com/aros-vision-tour/",
+  "title": { "rendered": "A Tour of AROS Vision" },
+  "excerpt": { "rendered": "<p>A free, modern Workbench-compatible OS. Boots in our pulldown screen.</p>" },
+  "content": {
+    "rendered": "<p>AROS Vision is a curated m68k distribution of AROS, the open-source AmigaOS-compatible operating system. It ships with a Workbench-style desktop, sensible defaults, and a stack of bundled freeware.</p><p>For this project we use it as the OS image inside our SAE pulldown screen. Click Power, give it a second to mount DH0:, and you get a real Workbench session in a browser tab.</p>",
+    "protected": false
+  },
+  "featured_media": 0,
+  "categories": [4]
+}

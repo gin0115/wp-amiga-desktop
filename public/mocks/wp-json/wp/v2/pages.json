@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "date": "2026-01-12T10:00:00",
+    "slug": "about",
+    "status": "publish",
+    "type": "page",
+    "link": "https://example.com/about/",
+    "title": { "rendered": "About" },
+    "excerpt": { "rendered": "<p>About this Workbench-styled site.</p>" },
+    "featured_media": 0
+  },
+  {
+    "id": 2,
+    "date": "2026-02-04T12:30:00",
+    "slug": "colophon",
+    "status": "publish",
+    "type": "page",
+    "link": "https://example.com/colophon/",
+    "title": { "rendered": "Colophon" },
+    "excerpt": { "rendered": "<p>The tools and fonts behind the site.</p>" },
+    "featured_media": 0
+  },
+  {
+    "id": 3,
+    "date": "2026-03-21T09:15:00",
+    "slug": "contact",
+    "status": "publish",
+    "type": "page",
+    "link": "https://example.com/contact/",
+    "title": { "rendered": "Contact" },
+    "excerpt": { "rendered": "<p>Drop a guru meditation.</p>" },
+    "featured_media": 0
+  }
+]

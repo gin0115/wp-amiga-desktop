@@ -1,0 +1,16 @@
+{
+  "id": 106,
+  "date": "2026-06-05T08:00:00",
+  "slug": "akiko-and-the-cd32",
+  "status": "publish",
+  "type": "post",
+  "link": "https://example.com/akiko-and-the-cd32/",
+  "title": { "rendered": "Akiko and the CD32" },
+  "excerpt": { "rendered": "<p>The Amiga's last hurrah was a console. The chip that ran it deserves a closer look.</p>" },
+  "content": {
+    "rendered": "<p>The CD32 shipped in 1993, a 32-bit AGA console with a custom chip called Akiko that did chunky-to-planar conversion in hardware — handy for 3D games on a bitplane machine.</p><p>It sold well enough to embarrass the people who thought Commodore was already dead, then Commodore died anyway.</p>",
+    "protected": false
+  },
+  "featured_media": 0,
+  "categories": [3]
+}
