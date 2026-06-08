@@ -1,0 +1,26 @@
+{
+  "id": 102,
+  "date": "2026-05-08T08:00:00",
+  "slug": "state-of-the-art-spaceballs",
+  "status": "publish",
+  "type": "post",
+  "link": "https://example.com/state-of-the-art-spaceballs/",
+  "title": { "rendered": "State of the Art / Spaceballs" },
+  "excerpt": { "rendered": "<p>The 1992 demo that still owns a few of you. We watched it again.</p>" },
+  "content": {
+    "rendered": "<p><em>State of the Art</em> dropped at The Party in 1992 and rewired what people thought a home computer could push at 50Hz.</p><p>Three minutes of synced rotoscoped silhouettes, copper-bar finishes, and a kickdrum that landed harder than the OCS palette deserved. Releasable as freeware by Spaceballs.</p><p>If you've never seen it, your pulldown emulator can probably run it. We'll wire a mountable ADF in Phase 2.</p>",
+    "protected": false
+  },
+  "featured_media": 2,
+  "categories": [2],
+  "_embedded": {
+    "wp:featuredmedia": [
+      {
+        "id": 2,
+        "source_url": "https://placehold.co/600x400/000000/ff8a00?text=State+of+the+Art",
+        "alt_text": "Mock featured image for State of the Art / Spaceballs",
+        "media_type": "image"
+      }
+    ]
+  }
+}

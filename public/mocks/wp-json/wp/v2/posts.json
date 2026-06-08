@@ -1,0 +1,74 @@
+[
+  {
+    "id": 101,
+    "date": "2026-05-01T08:00:00",
+    "slug": "workbench-3-1-release-notes",
+    "status": "publish",
+    "type": "post",
+    "link": "https://example.com/workbench-3-1-release-notes/",
+    "title": { "rendered": "Workbench 3.1 Release Notes" },
+    "excerpt": { "rendered": "<p>What shipped with Workbench 3.1 in 1994, and what's still useful in 2026.</p>" },
+    "featured_media": 1,
+    "categories": [1]
+  },
+  {
+    "id": 102,
+    "date": "2026-05-08T08:00:00",
+    "slug": "state-of-the-art-spaceballs",
+    "status": "publish",
+    "type": "post",
+    "link": "https://example.com/state-of-the-art-spaceballs/",
+    "title": { "rendered": "State of the Art / Spaceballs" },
+    "excerpt": { "rendered": "<p>The 1992 demo that still owns a few of you. We watched it again.</p>" },
+    "featured_media": 2,
+    "categories": [2]
+  },
+  {
+    "id": 103,
+    "date": "2026-05-15T08:00:00",
+    "slug": "trapdoor-cards-and-fast-ram",
+    "status": "publish",
+    "type": "post",
+    "link": "https://example.com/trapdoor-cards-and-fast-ram/",
+    "title": { "rendered": "Trapdoor Cards and the Joy of Fast RAM" },
+    "excerpt": { "rendered": "<p>An A1200's Chip RAM is fine; its Fast RAM is the upgrade you actually feel.</p>" },
+    "featured_media": 0,
+    "categories": [3]
+  },
+  {
+    "id": 104,
+    "date": "2026-05-22T08:00:00",
+    "slug": "aros-vision-tour",
+    "status": "publish",
+    "type": "post",
+    "link": "https://example.com/aros-vision-tour/",
+    "title": { "rendered": "A Tour of AROS Vision" },
+    "excerpt": { "rendered": "<p>A free, modern Workbench-compatible OS. Boots in our pulldown screen.</p>" },
+    "featured_media": 0,
+    "categories": [4]
+  },
+  {
+    "id": 105,
+    "date": "2026-05-29T08:00:00",
+    "slug": "intuition-screens-explained",
+    "status": "publish",
+    "type": "post",
+    "link": "https://example.com/intuition-screens-explained/",
+    "title": { "rendered": "Intuition Screens, Explained" },
+    "excerpt": { "rendered": "<p>Why the Amiga had multiple display modes coexisting. And how we faked it on the web.</p>" },
+    "featured_media": 0,
+    "categories": [1]
+  },
+  {
+    "id": 106,
+    "date": "2026-06-05T08:00:00",
+    "slug": "akiko-and-the-cd32",
+    "status": "publish",
+    "type": "post",
+    "link": "https://example.com/akiko-and-the-cd32/",
+    "title": { "rendered": "Akiko and the CD32" },
+    "excerpt": { "rendered": "<p>The Amiga's last hurrah was a console. The chip that ran it deserves a closer look.</p>" },
+    "featured_media": 0,
+    "categories": [3]
+  }
+]

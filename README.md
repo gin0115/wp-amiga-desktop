@@ -8,10 +8,9 @@ Phase 1 — in progress. Tracking by numbered steps; see `docs/screenshots/` for
 
 ## Toolchain
 
-Node 22 required (`nvm use 22` before any `npm` invocation). Everything else is in `package.json`.
+Node 22 (pinned in `.nvmrc`). Everything else is in `package.json`.
 
 ```
-nvm use 22
 npm install
 npm run dev
 ```
@@ -28,8 +27,8 @@ WP-side requirement for live data: add `Access-Control-Allow-Origin: <app-origin
 ## Tests
 
 ```
-npm run test        # Vitest component / hook tests
-npm run test:e2e    # Playwright e2e + screenshot regeneration
+npm run test       # Vitest component / hook tests
+npm run test:e2e   # Playwright e2e + screenshot regeneration
 ```
 
 E2E specs write screenshots to `docs/screenshots/stepN-<letter>.png`; the index is in `docs/README-screenshots.md`.

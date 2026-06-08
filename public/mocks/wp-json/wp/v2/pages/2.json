@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "date": "2026-02-04T12:30:00",
+  "slug": "colophon",
+  "status": "publish",
+  "type": "page",
+  "link": "https://example.com/colophon/",
+  "title": { "rendered": "Colophon" },
+  "content": {
+    "rendered": "<h2>Set in Topaz 8</h2><p>The Topaz 8 face is the iconic Amiga system font. The WB3.1 palette — blue, orange, white, black — is sampled from TAWS. Window chrome is rebuilt in CSS from intuition.library reference.</p><h2>Emulator</h2><p>The pulldown screen runs SAE (Scripted Amiga Emulator) booted from an AROS Kickstart and Workbench hardfile.</p>",
+    "protected": false
+  },
+  "excerpt": { "rendered": "<p>The tools and fonts behind the site.</p>" },
+  "featured_media": 0
+}

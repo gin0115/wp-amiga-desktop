@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "count": 3,
+    "name": "Workbench",
+    "slug": "workbench",
+    "description": "Notes on the Workbench environment, gadgets, screens, and intuition.",
+    "parent": 0,
+    "link": "https://example.com/category/workbench/"
+  },
+  {
+    "id": 2,
+    "count": 2,
+    "name": "Demos",
+    "slug": "demos",
+    "description": "Demoscene productions worth your scroll-bar gadget.",
+    "parent": 0,
+    "link": "https://example.com/category/demos/"
+  },
+  {
+    "id": 3,
+    "count": 2,
+    "name": "Hardware",
+    "slug": "hardware",
+    "description": "Trapdoor cards, RAM expansions, the Akiko chip, and other fun.",
+    "parent": 0,
+    "link": "https://example.com/category/hardware/"
+  },
+  {
+    "id": 4,
+    "count": 1,
+    "name": "AROS",
+    "slug": "aros",
+    "description": "The free, open-source AmigaOS-compatible OS.",
+    "parent": 0,
+    "link": "https://example.com/category/aros/"
+  },
+  {
+    "id": 5,
+    "count": 0,
+    "name": "Aminet",
+    "slug": "aminet",
+    "description": "The largest archive of Amiga PD and shareware.",
+    "parent": 0,
+    "link": "https://example.com/category/aminet/"
+  },
+  {
+    "id": 6,
+    "count": 0,
+    "name": "Tools",
+    "slug": "tools",
+    "description": "Workbench tools, commands, and utilities.",
+    "parent": 0,
+    "link": "https://example.com/category/tools/"
+  }
+]

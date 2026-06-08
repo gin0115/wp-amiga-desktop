@@ -1,0 +1,16 @@
+{
+  "id": 105,
+  "date": "2026-05-29T08:00:00",
+  "slug": "intuition-screens-explained",
+  "status": "publish",
+  "type": "post",
+  "link": "https://example.com/intuition-screens-explained/",
+  "title": { "rendered": "Intuition Screens, Explained" },
+  "excerpt": { "rendered": "<p>Why the Amiga had multiple display modes coexisting. And how we faked it on the web.</p>" },
+  "content": {
+    "rendered": "<p>The Amiga's intuition.library let multiple screens with independent display modes coexist — different resolutions, colour depths, even refresh rates — and you could pull one down with the mouse to reveal another behind it.</p><p>On the web we have one rectangle. We fake it with a CSS transform on the front-screen container and a freeform drag handler on the title bar.</p>",
+    "protected": false
+  },
+  "featured_media": 0,
+  "categories": [1]
+}

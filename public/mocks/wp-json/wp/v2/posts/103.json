@@ -1,0 +1,16 @@
+{
+  "id": 103,
+  "date": "2026-05-15T08:00:00",
+  "slug": "trapdoor-cards-and-fast-ram",
+  "status": "publish",
+  "type": "post",
+  "link": "https://example.com/trapdoor-cards-and-fast-ram/",
+  "title": { "rendered": "Trapdoor Cards and the Joy of Fast RAM" },
+  "excerpt": { "rendered": "<p>An A1200's Chip RAM is fine; its Fast RAM is the upgrade you actually feel.</p>" },
+  "content": {
+    "rendered": "<p>Bare A1200s have 2MB of Chip RAM and nothing else. Snap a trapdoor card in and you'll add 4-8MB of Fast RAM that the CPU doesn't share with custom chips.</p><p>The effect is unsubtle: any task that isn't bottlenecked on Paula or Lisa runs at a speed that makes the same machine feel like a different generation.</p>",
+    "protected": false
+  },
+  "featured_media": 0,
+  "categories": [3]
+}

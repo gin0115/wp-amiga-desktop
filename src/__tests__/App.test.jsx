@@ -6,6 +6,8 @@ describe('App scaffold', () => {
   it('renders the Workbench placeholder', () => {
     render(<App />);
     expect(screen.getByText('Workbench 3.1')).toBeInTheDocument();
-    expect(screen.getByText('scaffolding online')).toBeInTheDocument();
+    expect(
+      screen.getByText(/Topaz online — fixtures ready/i),
+    ).toBeInTheDocument();
   });
 });
